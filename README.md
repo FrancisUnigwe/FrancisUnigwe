@@ -13,7 +13,7 @@ All text, videos, courses and the process roadmap live in **`js/content.js`**. Y
 - **Top headline:** edit `heroLines` (last line is gold), `heroMeta` and `heroSub`.
 - **Vision statement:** edit `statement`; wrap words in `*stars*` to make them gold.
 - **Services:** edit the `services` list (ads, movies, music videos…). `thumb` is the hover preview image.
-- **Courses:** edit the `courses` list. Buttons open your Nestuge page (`coursesUrl`) unless a course has its own `link`.
+- **Classes (Courses section):** edit `classBanner`, `classHeading`, `classIntro` and the `classes` list. A class with `items` shows a list, one with `groups` shows headed columns, and one with neither shows just its title. "Register now" opens `coursesUrl` (Nestuge).
 - **"Where are we in our process?"** opens `process.html`. Update the `process` steps
   (`done` / `current` / `upcoming`), or point `processLink` to an external URL.
 

@@ -7,7 +7,7 @@
   <meta name="description" content="King Francis, AI filmmaker: ads, movies and music videos for clients, plus courses for students." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -132,16 +132,23 @@
       </div>
     </section>
 
-    <!-- COURSES -->
+    <!-- COURSES / CLASSES -->
     <section class="courses" id="courses">
-      <div class="courses-head">
-        <div>
-          <span class="kicker">04 / Courses</span>
-          <h2 class="split">Learn how I <em>do it.</em></h2>
-        </div>
-        <a class="btn btn-line magnetic" id="allCourses" target="_blank" rel="noopener"><span></span></a>
+      <div class="cls-banner" id="clsBanner">
+        <canvas id="halftone" aria-hidden="true"></canvas>
+        <h2 class="cls-banner-text" id="clsBannerText"></h2>
       </div>
-      <div class="course-stack" id="courseStack"></div>
+
+      <div class="cls-wrap">
+        <div class="cls-intro">
+          <span class="kicker">04 / Inside the class</span>
+          <h3 class="cls-heading" id="clsHeading"></h3>
+          <p class="cls-text" id="clsIntro"></p>
+          <a class="cls-register" id="clsRegister" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" class="ico"><path d="M6 18L18 6M8 6h10v10" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Register now</a>
+          <a class="cls-all" id="allCourses" target="_blank" rel="noopener"></a>
+        </div>
+        <ol class="cls-list" id="clsList"></ol>
+      </div>
     </section>
 
     <!-- PROCESS CTA -->

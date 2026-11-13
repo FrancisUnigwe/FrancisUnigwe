@@ -73,10 +73,60 @@ window.SITE = {
   coursesUrl: "https://nestuge.me/king-francis",
   coursesPlatform: "Nestuge",
 
-  courses: [
-    { title: "Course One",   level: "Beginner",     desc: "Short description of what students learn in this course.", price: "$—", link: "" },
-    { title: "Course Two",   level: "Intermediate", desc: "Short description of what students learn in this course.", price: "$—", link: "" },
-    { title: "Course Three", level: "Advanced",     desc: "Short description of what students learn in this course.", price: "$—", link: "" },
+  // The class curriculum shown in the Courses section.
+  // A class with "items" shows one list; a class with "groups" shows headed columns.
+  // A class with neither just shows its title (no expand button) until you add details.
+  classBanner: ["Eight classes.", "Zero to pro."],
+  classHeading: "From \u201cWhat If\u201d to Final Frame",
+  classIntro: "Eight live classes. Each one ends with a project. Submit it before the next class and it becomes your portfolio.",
+  classes: [
+    { title: "Introduction to AI video creation", groups: [
+      { heading: "Overview", items: [
+        "The difference between AI platforms and AI models",
+        "Understanding image, video and audio models",
+        "The interfaces of Higgsfield, Kling, Magnific and Flow AI",
+        "Introduction to Claude and Claude skills",
+        "Introduction to prompting",
+        "How to create 3D Pixar characters",
+      ] },
+      { heading: "Character consistency in 3D Pixar animation", items: [
+        "Using a character design sheet to keep characters consistent",
+        "Creating consistent characters in scenes with Nano Banana Pro",
+      ] },
+      { heading: "Image generation + storyboarding", items: [
+        "Using Flow Agents to mass-generate images",
+        "Using the Flow AI storyboard builder template",
+      ] },
+      { heading: "Your first 30-second video with Wan and Seedance", items: [
+        "Coming up with an idea and expanding it with Claude",
+        "Writing character and location prompts",
+        "Image and animation prompts in Claude (tagging your references)",
+        "Animating with Wan and Seedance",
+        "Post-production in CapCut",
+      ] },
+    ] },
+    { title: "Your first animated advert", items: [
+      "Understanding the limitations of AI for video creation",
+      "Understanding Claude skills and how to use them",
+      "Prompting with your voice",
+      "Gathering data to build your advert script",
+      "Building your assets: characters, locations, props",
+      "Animating with Seedance 2.5",
+      "Post-production",
+    ] },
+    { title: "Your first animated short film", items: [
+      "Writing your script with the help of Claude",
+      "Building your characters, locations and voices",
+      "Creating prompts for each shot",
+      "Animating in Magnific with consistent characters and scenes",
+      "Post-production in CapCut / DaVinci Resolve",
+      "How to get noticed and get clients",
+    ] },
+    { title: "Your first realistic dialogue video" },
+    { title: "Post-production in DaVinci Resolve" },
+    { title: "Creating AI UGC videos" },
+    { title: "Monetization" },
+    { title: "Student project display" },
   ],
 
   // The "Where are we in our process?" button. Points to the built-in process page by default;

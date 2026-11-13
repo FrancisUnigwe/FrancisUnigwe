@@ -181,18 +181,62 @@
     $("#aboutBody").innerHTML = A.paragraphs.map(p => `<p>${esc(p)}</p>`).join("") + (A.signoff ? `<p class="about-signoff"><em>${esc(A.signoff)}</em></p>` : "");
     $("#stats").innerHTML = A.stats.map(s => `<div class="stat"><b data-count="${+s.value}" data-suffix="${esc(s.suffix)}">${motion ? "0" : (+s.value).toLocaleString()}${motion ? "" : esc(s.suffix)}</b><span>${esc(s.label)}</span></div>`).join("");
 
-    $("#courseStack").innerHTML = S.courses.map((c, i) => `
-      <article class="course" style="top:calc(12vh + ${i * 22}px)">
-        <div class="course-info">
-          <div class="course-top"><span class="course-num">No. ${pad2(i + 1)}</span><span class="course-lvl">${esc(c.level)}</span></div>
-          <h3>${esc(c.title)}</h3><p>${esc(c.desc)}</p>
-          <div class="course-foot"><span class="course-price">${esc(c.price)}</span><a class="btn magnetic" href="${esc(c.link || S.coursesUrl)}" target="_blank" rel="noopener"><span>Enroll now ↗</span></a></div>
-        </div>
-        <div class="course-art"><div class="orb"></div><span class="big">${pad2(i + 1)}</span></div>
-      </article>`).join("");
-
+    // ----- classes -----
+    $("#clsBannerText").innerHTML = (S.classBanner || []).map(l => `<span data-text="${esc(l)}">${esc(l)}</span>`).join("");
+    $("#clsHeading").textContent = S.classHeading || "";
+    $("#clsIntro").textContent = S.classIntro || "";
+    $("#clsRegister").href = S.coursesUrl;
     const all = $("#allCourses");
-    all.href = S.coursesUrl; $("span", all).textContent = `All courses on ${S.coursesPlatform || "our platform"} ↗`;
+    all.href = S.coursesUrl; all.textContent = `All courses on ${S.coursesPlatform || "our platform"} \u2197`;
+    const li = arr => `<ul>${arr.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+    $("#clsList").innerHTML = (S.classes || []).map((c, i) => {
+      const has = (c.items && c.items.length) || (c.groups && c.groups.length);
+      const body = c.groups ? `<div class="cls-groups">${c.groups.map(g => `<div class="cls-group"><h4>${esc(g.heading)}</h4>${li(g.items)}</div>`).join("")}</div>` : c.items ? li(c.items) : "";
+      return `<li class="cls">
+        <${has ? `button type="button" aria-expanded="false"` : "div"} class="cls-row${has ? "" : " static"}">
+          <span class="cls-num">Class ${pad2(i + 1)}</span><span class="cls-title">${esc(c.title)}</span>${has ? '<span class="cls-ico"></span>' : "<span></span>"}
+        </${has ? "button" : "div"}>
+        ${has ? `<div class="cls-body"><div><div class="cls-inner">${body}</div></div></div>` : ""}
+      </li>`;
+    }).join("");
+    $("#clsList").addEventListener("click", e => {
+      const btn = e.target.closest("button.cls-row"); if (!btn) return;
+      const item = btn.parentNode, open = !item.classList.contains("open");
+      $$(".cls.open", $("#clsList")).forEach(x => { x.classList.remove("open"); $(".cls-row", x).setAttribute("aria-expanded", "false"); });
+      if (open) { item.classList.add("open"); btn.setAttribute("aria-expanded", "true"); }
+      setTimeout(() => window.ScrollTrigger && ScrollTrigger.refresh(), 650);
+    });
+
+    // halftone banner: gold dots that swell around two glows and the cursor
+    const hc = $("#halftone");
+    if (hc) {
+      const hx = hc.getContext("2d"), dprH = Math.min(devicePixelRatio || 1, 2);
+      let HW = 0, HH = 0, hm = { x: -9999, y: -9999 }, hRun = false, t0 = performance.now();
+      const hSize = () => { const r = hc.getBoundingClientRect(); HW = r.width; HH = r.height; hc.width = HW * dprH; hc.height = HH * dprH; hx.setTransform(dprH, 0, 0, dprH, 0, 0); };
+      const hDraw = now => {
+        const t = (now - t0) / 1000, gap = HW < 600 ? 7 : 9, maxR = gap * 0.5;
+        const narrow = HW < 700;
+        const R = (narrow ? HW * 0.36 : Math.max(HH * 1.05, HW * 0.24)) * (1 + 0.05 * Math.sin(t * 0.8));
+        const cs = narrow ? [[HW * 0.02, HH * 0.5], [HW * 0.98, HH * 0.5]] : [[HW * 0.13, HH * 0.5], [HW * 0.87, HH * 0.5]];
+        hx.clearRect(0, 0, HW, HH);
+        for (let y = gap / 2; y < HH; y += gap) for (let x = gap / 2; x < HW; x += gap) {
+          let f = 0;
+          for (const [cx, cy] of cs) { const d = Math.hypot(x - cx, y - cy); f = Math.max(f, 1 - d / R); }
+          const dm = Math.hypot(x - hm.x, y - hm.y); f = Math.max(f, (1 - dm / 150) * 0.9);
+          if (f <= 0.02) continue;
+          const rr = maxR * Math.pow(f, 1.25); if (rr < 0.35) continue;
+          hx.fillStyle = `rgba(${Math.round(200 + 46 * f)},${Math.round(160 + 66 * f)},${Math.round(90 + 84 * f)},${0.2 + 0.8 * f})`;
+          hx.beginPath(); hx.arc(x, y, rr, 0, 6.2832); hx.fill();
+        }
+        if (hRun && !reduce) requestAnimationFrame(hDraw);
+      };
+      hSize(); addEventListener("resize", hSize);
+      const ban = $("#clsBanner");
+      ban.addEventListener("mousemove", e => { const r = hc.getBoundingClientRect(); hm.x = e.clientX - r.left; hm.y = e.clientY - r.top; });
+      ban.addEventListener("mouseleave", () => { hm.x = hm.y = -9999; });
+      new IntersectionObserver(([en]) => { const was = hRun; hRun = en.isIntersecting; if (hRun && !was) requestAnimationFrame(hDraw); }).observe(hc);
+      requestAnimationFrame(hDraw);
+    }
 
     const em = $("#emailLink"); $("span", em).textContent = S.email; em.href = `mailto:${S.email}`;
 
@@ -473,14 +517,19 @@
     gsap.fromTo(["#aboutPhoto", ".photo-fallback"], { scale: 1.15 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".about", start: "top bottom", end: "bottom top", scrub: true } });
     gsap.from(".photo-tag", { x: -60, opacity: 0, rotate: -20, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: "#photoMask", start: "top 50%" } });
 
-    // ----- stacked course cards -----
-    const cards = $$(".course");
-    cards.forEach((c, i) => {
-      gsap.from(c, { y: 120, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: c, start: "top 95%" } });
-      if (i === cards.length - 1) return;
-      gsap.to(c, { scale: 0.9, filter: "brightness(.4)", ease: "none",
-        scrollTrigger: { trigger: cards[i + 1], start: "top bottom", end: () => `top ${innerHeight * 0.12 + (i + 1) * 22}px`, scrub: true } });
-    });
+    // ----- classes: banner text scrambles in, rows slide up -----
+    const glyphs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+";
+    ScrollTrigger.create({ trigger: "#clsBanner", start: "top 75%", once: true, onEnter: () => {
+      $$("#clsBannerText span").forEach((sp, li) => {
+        const target = sp.dataset.text, o = { p: 0 };
+        gsap.to(o, { p: 1, duration: 1.4, delay: li * 0.25, ease: "power2.out", onUpdate: () => {
+          const n = Math.floor(o.p * target.length);
+          sp.textContent = target.slice(0, n) + [...target.slice(n)].map(ch => ch === " " ? " " : glyphs[(Math.random() * glyphs.length) | 0]).join("");
+        }, onComplete: () => (sp.textContent = target) });
+      });
+    } });
+    gsap.from(".cls", { y: 30, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.06, scrollTrigger: { trigger: "#clsList", start: "top 85%" } });
+    gsap.from([".cls-heading", ".cls-text", ".cls-register", ".cls-all"], { y: 30, opacity: 0, duration: 1.1, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".cls-intro", start: "top 85%" } });
 
     // ----- process CTA -----
     gsap.fromTo(".pc-ring", { rotate: -40, scale: 0.7 }, { rotate: 40, scale: 1.15, ease: "none", scrollTrigger: { trigger: ".process-cta", start: "top bottom", end: "bottom top", scrub: true } });
