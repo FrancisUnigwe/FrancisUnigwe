@@ -199,8 +199,9 @@ window.SITE = {
       "Building your portfolio, and where to host it",
       "Q&A",
     ] },
-    { title: "Student project display", summary: "Screen the work you built across the programme: the first pieces of your real portfolio.",
-      text: "Every student screens the work they built across the programme: the first pieces of a real portfolio." },
+    { title: "Student project display", summary: "Screen the work you built across the programme. Best projects win Magnific or Higgsfield credits.",
+      text: "Every student screens the work they built across the programme: the first pieces of a real portfolio.",
+      prize: "Best projects win credits on Magnific or Higgsfield." },
   ],
 
   // The "Where are we in our process?" button. Points to the built-in process page by default;
