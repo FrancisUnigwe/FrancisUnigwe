@@ -120,6 +120,15 @@
     }).join("");
     $("#connectNote").textContent = S.responseNote || "";
 
+    // footer
+    $("#ftAbout").textContent = S.footerAbout || "";
+    $("#ftTagline").textContent = S.footerTagline || "";
+    $("#ftMail").href = `mailto:${S.email}`;
+    $("#ftClasses").href = S.coursesUrl;
+    $("#ftSocial").innerHTML = $("#connectIcons").innerHTML;
+    $("#ftServices").innerHTML = (S.services || []).map(v => `<li><a href="#services" data-scroll>${esc(v.title)}</a></li>`).join("")
+      + `<li><a href="#courses" data-scroll>AI Filmmaking Classes</a></li>`;
+
     // background video
     const hv = $("#heroVideo"), snd = $("#soundBtn");
     if (S.heroVideo) {
@@ -424,8 +433,8 @@
       gsap.to(o, { v: target, duration: 2.2, ease: "power3.out", onUpdate: () => (el.textContent = Math.round(o.v).toLocaleString() + suf) }) });
   });
 
-  // footer name rise
-  $$(".footer-name").forEach(el => gsap.from(el, { yPercent: 40, opacity: 0.2, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom bottom", scrub: true } }));
+  // footer columns rise in
+  if ($(".ft-grid")) gsap.from(".ft-grid > *", { y: 40, opacity: 0, duration: 1.1, ease: "expo.out", stagger: 0.1, scrollTrigger: { trigger: ".site-footer", start: "top 90%" } });
 
   /* ---------- cursor + magnetic ---------- */
   if (fine) {

@@ -179,6 +179,9 @@ window.SITE = {
   // The first time someone submits, FormSubmit emails this address an activation link: click it once.
   formEmail: "kingspetsng@gmail.com",
   formEndpoint: "https://formsubmit.co/ajax/kingspetsng@gmail.com",
+  // Footer text.
+  footerAbout: "AI filmmaker creating cinematic ads, movies and music videos for brands, and teaching creators how it's done.",
+  footerTagline: "AI Filmmaker | Ads | Movies | Music Videos | Classes",
   // Short note under the social icons in the contact section.
   responseNote: "Response within 12–24 hours by email",
   // Public email shown on the site (Send a Mail button and next to the form).
