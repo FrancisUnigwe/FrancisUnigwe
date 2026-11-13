@@ -159,10 +159,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 
 /* name under the strip */
 .namebar { position: relative; padding: 120px var(--pad) 0; }
-.nb { width: min(1100px, 100%); margin: 0 auto; }
-.nb-king { display: block; overflow: hidden; line-height: 1.05; margin-bottom: -.22em; padding-left: .04em; position: relative; z-index: 1; }
-.nb-king em { display: inline-block; }
-.nb-name { display: block; white-space: nowrap; overflow: hidden; text-align: center; font-family: var(--display); text-transform: uppercase; letter-spacing: -.005em; line-height: .86; padding-top: .04em; color: var(--ink); }
+.nb-name { width: min(1240px, 100%); margin: 0 auto; white-space: nowrap; overflow: hidden; text-align: center; font-family: var(--sans); font-weight: 300; text-transform: uppercase; letter-spacing: .04em; line-height: 1.1; padding: .08em 0 .04em; color: var(--ink); }
 .nb-name .ch { display: inline-block; will-change: transform; transition: color .5s; }
 .nb-name .ch.lit { color: var(--gold-hi); }
 
