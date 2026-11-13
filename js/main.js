@@ -147,10 +147,13 @@
         <div class="course-info">
           <div class="course-top"><span class="course-num">No. ${pad2(i + 1)}</span><span class="course-lvl">${esc(c.level)}</span></div>
           <h3>${esc(c.title)}</h3><p>${esc(c.desc)}</p>
-          <div class="course-foot"><span class="course-price">${esc(c.price)}</span><a class="btn magnetic" href="${esc(c.link)}"><span>Enroll now →</span></a></div>
+          <div class="course-foot"><span class="course-price">${esc(c.price)}</span><a class="btn magnetic" href="${esc(c.link || S.coursesUrl)}" target="_blank" rel="noopener"><span>Enroll now ↗</span></a></div>
         </div>
         <div class="course-art"><div class="orb"></div><span class="big">${pad2(i + 1)}</span></div>
       </article>`).join("");
+
+    const all = $("#allCourses");
+    all.href = S.coursesUrl; $("span", all).textContent = `All courses on ${S.coursesPlatform || "our platform"} ↗`;
 
     const em = $("#emailLink"); em.textContent = S.email; em.href = `mailto:${S.email}`;
   }

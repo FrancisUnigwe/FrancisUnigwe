@@ -56,11 +56,15 @@ window.SITE = {
     ],
   },
 
-  /* ---------------- COURSES ---------------- */
+  /* ---------------- COURSES ----------------
+     Your course platform. Every course button opens this unless a course has its own "link".  */
+  coursesUrl: "https://nestuge.me/king-francis",
+  coursesPlatform: "Nestuge",
+
   courses: [
-    { title: "Course One",   level: "Beginner",     desc: "Short description of what students learn in this course.", price: "$—", link: "#" },
-    { title: "Course Two",   level: "Intermediate", desc: "Short description of what students learn in this course.", price: "$—", link: "#" },
-    { title: "Course Three", level: "Advanced",     desc: "Short description of what students learn in this course.", price: "$—", link: "#" },
+    { title: "Course One",   level: "Beginner",     desc: "Short description of what students learn in this course.", price: "$—", link: "" },
+    { title: "Course Two",   level: "Intermediate", desc: "Short description of what students learn in this course.", price: "$—", link: "" },
+    { title: "Course Three", level: "Advanced",     desc: "Short description of what students learn in this course.", price: "$—", link: "" },
   ],
 
   // The "Where are we in our process?" button. Points to the built-in process page by default;

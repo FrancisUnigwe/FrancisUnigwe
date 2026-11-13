@@ -231,7 +231,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 
 /* ---------- courses (sticky stack) ---------- */
 .courses { padding: clamp(80px, 10vw, 140px) var(--pad) 40px; }
-.courses-head { margin-bottom: 60px; }
+.courses-head { margin-bottom: 60px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
 .course-stack { display: flex; flex-direction: column; gap: 4vh; }
 .course { position: sticky; top: 12vh; display: grid; grid-template-columns: 1.1fr 1fr; min-height: 68vh; border-radius: 10px; overflow: hidden; border: 1px solid rgba(217,180,108,.2); background: var(--bg-2); transform-origin: center top; will-change: transform; }
 .course-info { padding: clamp(28px, 4vw, 60px); display: flex; flex-direction: column; }

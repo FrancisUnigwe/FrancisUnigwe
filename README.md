@@ -13,7 +13,7 @@ All text, videos, courses and the process roadmap live in **`js/content.js`**. Y
 - **Play the reel badge:** set `reel.youtube` or `reel.file` (defaults to your first video).
 - **Vision statement:** edit `statement`; wrap words in `*stars*` to make them gold.
 - **Services:** edit the `services` list (ads, movies, music videos…). `thumb` is the hover preview image.
-- **Courses:** edit the `courses` list. Each `link` goes to your course checkout or page.
+- **Courses:** edit the `courses` list. Buttons open your Nestuge page (`coursesUrl`) unless a course has its own `link`.
 - **"Where are we in our process?"** opens `process.html`. Update the `process` steps
   (`done` / `current` / `upcoming`), or point `processLink` to an external URL.
 
