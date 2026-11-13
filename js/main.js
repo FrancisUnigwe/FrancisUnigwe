@@ -209,27 +209,41 @@
       setTimeout(() => window.ScrollTrigger && ScrollTrigger.refresh(), 650);
     });
 
-    // halftone banner: gold dots that swell around two glows and the cursor
+    // wave banner: flowing gold lines (like a soundwave / light streaks) that ripple around the cursor
     const hc = $("#halftone");
     if (hc) {
       const hx = hc.getContext("2d"), dprH = Math.min(devicePixelRatio || 1, 2);
-      let HW = 0, HH = 0, hm = { x: -9999, y: -9999 }, hRun = false, t0 = performance.now();
+      let HW = 0, HH = 0, hm = { x: -9999, y: -9999 }, hmS = { x: -9999, y: -9999 }, hRun = false, t0 = performance.now();
       const hSize = () => { const r = hc.getBoundingClientRect(); HW = r.width; HH = r.height; hc.width = HW * dprH; hc.height = HH * dprH; hx.setTransform(dprH, 0, 0, dprH, 0, 0); };
       const hDraw = now => {
-        const t = (now - t0) / 1000, gap = HW < 600 ? 7 : 9, maxR = gap * 0.5;
-        const narrow = HW < 700;
-        const R = (narrow ? HW * 0.36 : Math.max(HH * 1.05, HW * 0.24)) * (1 + 0.05 * Math.sin(t * 0.8));
-        const cs = narrow ? [[HW * 0.02, HH * 0.5], [HW * 0.98, HH * 0.5]] : [[HW * 0.13, HH * 0.5], [HW * 0.87, HH * 0.5]];
+        const t = (now - t0) / 1000;
+        hmS.x += (hm.x - hmS.x) * 0.12; hmS.y += (hm.y - hmS.y) * 0.12;
+        if (hm.x < -5000) { hmS.x = hm.x; hmS.y = hm.y; }
         hx.clearRect(0, 0, HW, HH);
-        for (let y = gap / 2; y < HH; y += gap) for (let x = gap / 2; x < HW; x += gap) {
-          let f = 0;
-          for (const [cx, cy] of cs) { const d = Math.hypot(x - cx, y - cy); f = Math.max(f, 1 - d / R); }
-          const dm = Math.hypot(x - hm.x, y - hm.y); f = Math.max(f, (1 - dm / 150) * 0.9);
-          if (f <= 0.02) continue;
-          const rr = maxR * Math.pow(f, 1.25); if (rr < 0.35) continue;
-          hx.fillStyle = `rgba(${Math.round(200 + 46 * f)},${Math.round(160 + 66 * f)},${Math.round(90 + 84 * f)},${0.2 + 0.8 * f})`;
-          hx.beginPath(); hx.arc(x, y, rr, 0, 6.2832); hx.fill();
+        hx.globalCompositeOperation = "lighter";
+        const lines = HW < 700 ? 16 : 26, step = HW < 700 ? 6 : 8;
+        for (let i = 0; i < lines; i++) {
+          const k = i / (lines - 1), base = HH * (0.12 + k * 0.76);
+          const amp = HH * (0.06 + 0.05 * Math.sin(i * 1.7));
+          const freq = 0.006 + 0.002 * Math.sin(i * 0.9), speed = 0.5 + 0.35 * ((i * 7) % 5) / 5;
+          const grad = hx.createLinearGradient(0, 0, HW, 0);
+          const a = 0.3 + 0.45 * (1 - Math.abs(k - 0.5) * 1.4);
+          grad.addColorStop(0, `rgba(246,226,174,${a})`);
+          grad.addColorStop(0.3, `rgba(217,180,108,${a * 0.55})`);
+          grad.addColorStop(0.5, `rgba(217,180,108,${a * 0.08})`);
+          grad.addColorStop(0.7, `rgba(217,180,108,${a * 0.55})`);
+          grad.addColorStop(1, `rgba(246,226,174,${a})`);
+          hx.strokeStyle = grad; hx.lineWidth = i % 4 === 0 ? 1.8 : 1;
+          hx.beginPath();
+          for (let x = -10; x <= HW + 10; x += step) {
+            let y = base + Math.sin(x * freq + t * speed + i * 0.55) * amp + Math.sin(x * freq * 2.3 - t * speed * 0.7 + i) * amp * 0.35;
+            const dx = x - hmS.x, dy = base - hmS.y, g = Math.exp(-(dx * dx) / 9000 - (dy * dy) / 6000);
+            y += g * 34 * Math.sin(t * 6 + x * 0.05);
+            x === -10 ? hx.moveTo(x, y) : hx.lineTo(x, y);
+          }
+          hx.stroke();
         }
+        hx.globalCompositeOperation = "source-over";
         if (hRun && !reduce) requestAnimationFrame(hDraw);
       };
       hSize(); addEventListener("resize", hSize);
