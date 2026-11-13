@@ -12,7 +12,8 @@ window.SITE = {
 
   // Video that plays full-screen behind the top of the page (muted, looping). e.g. "assets/videos/showreel.mp4"
   // Until you add one, an animated gold background is shown instead.
-  heroVideo: "",
+  heroVideo: "assets/videos/showreel.mp4",
+  heroPoster: "assets/images/showreel-poster.jpg", // still frame shown while the video loads
   // Your social handle shown under the buttons (optional), e.g. "@kingfrancis"
   handle: "",
 

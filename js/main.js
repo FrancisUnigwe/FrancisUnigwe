@@ -118,6 +118,7 @@
     // background video
     const hv = $("#heroVideo"), snd = $("#soundBtn");
     if (S.heroVideo) {
+      if (S.heroPoster) hv.poster = S.heroPoster;
       hv.src = S.heroVideo;
       hv.addEventListener("playing", () => ($(".hero-placeholder").style.opacity = 0), { once: true });
       snd.hidden = false;
