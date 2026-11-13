@@ -337,7 +337,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .rule h4 { font-family: var(--sans); font-weight: 300; font-size: clamp(22px, 2vw, 28px); margin: 22px 0 10px; transition: color .4s; }
 .rule:hover h4 { color: var(--gold-hi); }
 .rule p { font-family: var(--mono); font-size: 13px; line-height: 1.65; color: var(--muted); max-width: 320px; }
-.rules-close { font-family: var(--sans); font-weight: 200; font-size: clamp(34px, 5vw, 72px); line-height: 1.12; letter-spacing: -.02em; max-width: 18ch; margin-top: clamp(50px, 7vw, 100px); }
+.rules-close { font-family: var(--sans); font-weight: 200; font-size: clamp(34px, 5vw, 72px); line-height: 1.12; letter-spacing: -.02em; max-width: 18ch; margin: clamp(50px, 7vw, 100px) auto 0; text-align: center; }
 .rules-close .rw { opacity: .15; }
 
 /* ---------- contact ---------- */
