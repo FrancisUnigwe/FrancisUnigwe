@@ -184,7 +184,38 @@
     const all = $("#allCourses");
     all.href = S.coursesUrl; $("span", all).textContent = `All courses on ${S.coursesPlatform || "our platform"} ↗`;
 
-    const em = $("#emailLink"); em.textContent = S.email; em.href = `mailto:${S.email}`;
+    const em = $("#emailLink"); $("span", em).textContent = S.email; em.href = `mailto:${S.email}`;
+
+    // ----- project brief form -----
+    const chipsEl = $("#chips");
+    chipsEl.innerHTML = (S.projectTypes || []).map((t, i) => `<button type="button" class="chip" aria-pressed="${i === 0}">${esc(t)}</button>`).join("");
+    chipsEl.addEventListener("click", e => {
+      const c = e.target.closest(".chip"); if (!c) return;
+      $$(".chip", chipsEl).forEach(x => x.setAttribute("aria-pressed", x === c));
+    });
+    const form = $("#briefForm"), status = $("#briefStatus");
+    form.addEventListener("input", e => e.target.classList.remove("invalid"));
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      const f = form.elements, type = ($(".chip[aria-pressed=true]", chipsEl) || {}).textContent || "";
+      const bad = ["name", "email", "brief"].filter(n => !f[n].value.trim() || (n === "email" && !/^\S+@\S+\.\S+$/.test(f[n].value)));
+      bad.forEach(n => f[n].classList.add("invalid"));
+      if (bad.length) { status.textContent = "Please fill in your name, a valid email and a short brief."; f[bad[0]].focus(); return; }
+      const data = { type, name: f.name.value.trim(), email: f.email.value.trim(), timeline: f.timeline.value.trim(), brief: f.brief.value.trim() };
+      if (S.formEndpoint) {
+        const btn = $(".brief-btn", form); btn.disabled = true; status.textContent = "Sending…";
+        try {
+          const r = await fetch(S.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) });
+          if (!r.ok) throw 0;
+          form.reset(); status.textContent = "Thank you! Your brief is in. I'll get back to you soon.";
+        } catch { status.textContent = `Something went wrong. Please email me at ${S.email}.`; }
+        btn.disabled = false;
+      } else {
+        const body = `Project type: ${data.type}\nName: ${data.name}\nEmail: ${data.email}\nTimeline / budget: ${data.timeline || "-"}\n\n${data.brief}`;
+        location.href = `mailto:${S.email}?subject=${encodeURIComponent(`New project: ${data.type} (${data.name})`)}&body=${encodeURIComponent(body)}`;
+        status.textContent = "Opening your email app with your brief filled in…";
+      }
+    });
   }
 
   /* ---------- PROCESS CONTENT ---------- */
@@ -301,7 +332,7 @@
     if (el.classList.contains("pp-title")) return;
     gsap.from(words(el), { yPercent: 115, rotate: 5, duration: 1.3, ease: "expo.out", stagger: 0.07, scrollTrigger: { trigger: el, start: "top 86%" } });
   });
-  $$(".kicker, .about-text p, .stats, .email, .contact .socials, .work-counter").forEach(el => {
+  $$(".kicker, .about-text p, .stats, .contact-sub, .brief, .contact > .socials, .work-counter").forEach(el => {
     if (el.closest(".pp-hero")) return;
     gsap.from(el, { y: 40, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } });
   });

@@ -17,6 +17,11 @@ All text, videos, courses and the process roadmap live in **`js/content.js`**. Y
 - **"Where are we in our process?"** opens `process.html`. Update the `process` steps
   (`done` / `current` / `upcoming`), or point `processLink` to an external URL.
 
+## Contact form
+- Project-type buttons come from `projectTypes`.
+- By default, submitting opens the visitor's email app with their brief filled in and addressed to `email`.
+- To receive briefs directly instead, create a free form at a service like Formspree and paste its URL into `formEndpoint`.
+
 ## Pages
 - `index.html`: hero, popular videos, services (client work), about me, courses, contact
 - `process.html`: course progress roadmap

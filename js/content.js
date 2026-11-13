@@ -92,6 +92,11 @@ window.SITE = {
   ],
 
   /* ---------------- CONTACT / SOCIALS ---------------- */
+  // Project types shown as buttons in the contact form.
+  projectTypes: ["Ads & Commercials", "Movies & Short Films", "Music Videos", "Brand Content", "Creative Direction", "Training & Speaking"],
+  // Optional: a form service URL (e.g. Formspree "https://formspree.io/f/xxxx") to receive briefs directly.
+  // Leave "" and the form opens the visitor's email app with everything filled in, addressed to your email.
+  formEndpoint: "",
   email: "hello@example.com",
   socials: [
     { label: "YouTube",   url: "#" },
