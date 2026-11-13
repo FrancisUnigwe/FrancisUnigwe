@@ -226,11 +226,11 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .contact-sub { color: var(--muted); font-size: 17px; margin: -24px 0 40px; max-width: 460px; }
 
 /* ---------- marquee ---------- */
-.marquee { overflow: hidden; padding: 26px 0; border-block: 1px solid var(--line); margin-top: 110px; }
+.marquee { overflow: hidden; padding: 34px 0; border-block: 1px solid var(--line); margin-top: 60px; }
 .marquee-track { display: flex; width: max-content; will-change: transform; }
-.marquee-track span { font-family: var(--sans); font-weight: 300; letter-spacing: .04em; font-size: clamp(34px, 4.6vw, 76px); text-transform: uppercase; line-height: 1.1; padding: 0 .35em; white-space: nowrap; display: flex; align-items: center; gap: .45em; }
+.marquee-track span { font-family: var(--display); font-size: clamp(56px, 9vw, 150px); text-transform: uppercase; line-height: 1; padding: 0 .25em; white-space: nowrap; display: flex; align-items: center; gap: .3em; }
 .marquee-track .mq-sep { font-style: normal; font-size: .4em; color: var(--gold); -webkit-text-stroke: 0; }
-.marquee-track span:nth-child(even) { color: transparent; -webkit-text-stroke: 1px rgba(217,180,108,.7); }
+.marquee-track span:nth-child(even) { color: transparent; -webkit-text-stroke: 1px rgba(217,180,108,.6); }
 
 /* ---------- about ---------- */
 .about { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(40px, 7vw, 130px); padding: clamp(100px, 14vw, 200px) var(--pad); align-items: start; }
@@ -362,7 +362,6 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
   .strip-card:nth-child(n+4) { display: none; }
   .strip-card .ph b { font-size: 34px; }
   .hero-sound { top: 84px; padding: 8px 14px; font-size: 11px; }
-  .marquee { margin-top: 70px; padding: 18px 0; }
   .menu-btn { display: inline-flex; }
   .work-track { flex-direction: column; width: auto; gap: 56px; }
   .vcard { width: 100%; min-width: 0; }
