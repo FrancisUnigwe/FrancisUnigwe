@@ -409,7 +409,7 @@
 
     // ----- about photo reveal -----
     gsap.fromTo("#photoMask", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut", scrollTrigger: { trigger: "#photoMask", start: "top 80%" } });
-    gsap.fromTo(["#aboutPhoto", ".photo-fallback"], { scale: 1.35 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".about", start: "top bottom", end: "bottom top", scrub: true } });
+    gsap.fromTo(["#aboutPhoto", ".photo-fallback"], { scale: 1.15 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".about", start: "top bottom", end: "bottom top", scrub: true } });
     gsap.from(".photo-tag", { x: -60, opacity: 0, rotate: -20, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: "#photoMask", start: "top 50%" } });
 
     // ----- stacked course cards -----
