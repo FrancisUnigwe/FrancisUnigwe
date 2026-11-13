@@ -1,6 +1,6 @@
-# King Francs — Portfolio
+# King Francis — Portfolio
 
-A static portfolio site for King Francs (no build step). Open `index.html` in a browser to preview.
+A static portfolio site for King Francis (no build step). Open `index.html` in a browser to preview.
 Animation libraries (GSAP + ScrollTrigger, Lenis smooth scroll) are bundled in `js/vendor/`.
 
 ## Updating content

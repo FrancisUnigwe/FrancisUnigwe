@@ -4,7 +4,7 @@
    ===================================================================== */
 
 window.SITE = {
-  name: "King Francs",
+  name: "King Francis",
   heroSub: "Videos that stop the scroll, and courses that show you exactly how they're made.",
 
   // Optional looping background video for the hero (muted). Leave "" for the animated gold dust only.
