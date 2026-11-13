@@ -115,7 +115,7 @@ window.SITE = {
       "Animating with Seedance 2.5",
       "Post-production",
     ] },
-    { title: "Your first animated short film", items: [
+    { title: "Your first animated music video", items: [
       "Writing your script with the help of Claude",
       "Building your characters, locations and voices",
       "Creating prompts for each shot",
@@ -130,11 +130,11 @@ window.SITE = {
       "Producing your film in Higgsfield / Magnific with consistent characters and scenes",
       "Post-production in CapCut / DaVinci Resolve",
     ] },
-    { title: "Post-production in DaVinci Resolve", items: [
+    { title: "Post-production in CapCut", items: [
       "How to write a good story with your imagination and Claude",
-      "Installing DaVinci Resolve for Windows",
-      "Editing your AI content in DaVinci Resolve",
-      "Basic sound design in DaVinci Resolve",
+      "Installing CapCut for Windows",
+      "Editing your AI content in CapCut",
+      "Basic sound design in CapCut",
       "Where to find copyright-free sound effects and background music",
       "Creating your portfolio",
     ] },
