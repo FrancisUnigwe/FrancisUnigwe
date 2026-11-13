@@ -73,6 +73,49 @@ window.SITE = {
   coursesUrl: "https://nestuge.me/king-francis",
   coursesPlatform: "Nestuge",
 
+  // Extra blocks under the class list.
+  classWhy: {
+    kicker: "Why you're here",
+    heading: ["There's a Reason", "You Found This"],
+    text: "No long theory lectures. In every class you create a real video alongside me, live, and you leave with a portfolio and a clear plan to start earning from it.",
+    reasons: [
+      "You've been teaching yourself, but the results just aren't showing up.",
+      "You've paid for courses before and they never covered what you actually needed.",
+      "You've watched my videos and you want to create work like that.",
+      "You want your AI videos to start bringing in real income.",
+    ],
+  },
+  classFit: {
+    yesTitle: "This is for you if\u2026",
+    yes: [
+      "You're starting from zero and want a clear, step-by-step path",
+      "You want to create polished animations and lifelike videos with generative AI",
+      "You have stories and ideas you're itching to bring to the screen",
+      "You want to turn this skill into paid client work",
+      "You can attend the live sessions and complete every assignment",
+    ],
+    noTitle: "This isn't for you if\u2026",
+    no: [
+      "You expect income without putting in the effort",
+      "You're hunting for a shortcut or an \u201ceasy AI money\u201d scheme",
+      "You tend to buy programmes and never start them",
+      "You'd rather debate the method than follow it",
+      "The class fee is money you need for essentials right now",
+    ],
+  },
+  classRules: {
+    kicker: "How the live class works",
+    items: [
+      { title: "Be on time", text: "Join every session live. If you miss one, catch the replay before the next class." },
+      { title: "Complete every project", text: "Every class ends with a project. Hand it in before the next session and watch your portfolio grow." },
+      { title: "Arrive ready", text: "Charge your laptop and check your internet connection before we start." },
+      { title: "Speak up", text: "There are no silly questions. Stuck? Say so in class or in the group. Someone else probably is too." },
+      { title: "Keep it respectful", text: "Stay muted with your camera off unless you're speaking. No spam or self-promotion in the group." },
+      { title: "Keep it in the class", text: "Recordings, templates and prompt files are for enrolled students only." },
+    ],
+    closing: "Show up and do the work, and the results will follow. Skip it, and nothing changes.",
+  },
+
   // The class curriculum shown in the Courses section.
   // "summary" is the short line shown on the right of each row.
   // A class with "items" shows one list; a class with "groups" shows headed columns.

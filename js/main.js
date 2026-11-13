@@ -221,6 +221,20 @@
       setTimeout(() => window.ScrollTrigger && ScrollTrigger.refresh(), 650);
     });
 
+    // class extras
+    const W = S.classWhy || {}, F = S.classFit || {}, RU = S.classRules || {};
+    $("#whyKicker").textContent = W.kicker || "";
+    $("#whyHeading").innerHTML = (W.heading || []).map(l => `<span>${esc(l)}</span>`).join("");
+    $("#whyText").textContent = W.text || "";
+    $("#whyList").innerHTML = (W.reasons || []).map((r, i) => `<li><span class="why-num">${pad2(i + 1)}</span><span class="why-line">${esc(r)}</span></li>`).join("");
+    $("#fitYesTitle").textContent = F.yesTitle || ""; $("#fitNoTitle").textContent = F.noTitle || "";
+    $("#fitYes").innerHTML = (F.yes || []).map(x => `<li>${esc(x)}</li>`).join("");
+    $("#fitNo").innerHTML = (F.no || []).map(x => `<li>${esc(x)}</li>`).join("");
+    $$(".fit-card").forEach(c => c.addEventListener("mousemove", e => { const r = c.getBoundingClientRect(); c.style.setProperty("--mx", `${e.clientX - r.left}px`); c.style.setProperty("--my", `${e.clientY - r.top}px`); }));
+    $("#rulesKicker").textContent = RU.kicker || "";
+    $("#rulesGrid").innerHTML = (RU.items || []).map((r, i) => `<div class="rule"><span class="rule-num">${pad2(i + 1)}</span><h4>${esc(r.title)}</h4><p>${esc(r.text)}</p></div>`).join("");
+    $("#rulesClose").innerHTML = (RU.closing || "").split(/\s+/).map(w => `<span class="rw">${esc(w)}</span>`).join(" ");
+
     // wave banner: flowing gold lines (like a soundwave / light streaks) that ripple around the cursor
     const hc = $("#halftone");
     if (hc) {
@@ -564,6 +578,15 @@
         .from($(".cls-dot", c), { scale: 0, duration: 0.6, ease: "back.out(3)" }, 0.9)
         .from($(".cls-sum", c), { x: 30, opacity: 0, duration: 0.9, ease: "expo.out" }, 0.8);
     });
+    // class extras motion
+    gsap.from(".why-heading span", { yPercent: 40, opacity: 0, duration: 1.2, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".why", start: "top 80%" } });
+    gsap.from(".why-text", { y: 30, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: ".why", start: "top 80%" } });
+    gsap.from(".why-list li", { x: 60, opacity: 0, duration: 1.1, ease: "expo.out", stagger: 0.1, scrollTrigger: { trigger: ".why-list", start: "top 85%" } });
+    gsap.from(".fit-card", { y: 70, opacity: 0, duration: 1.2, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".fit", start: "top 85%" } });
+    gsap.from(".fit li", { x: -20, opacity: 0, duration: 0.8, ease: "expo.out", stagger: 0.05, scrollTrigger: { trigger: ".fit", start: "top 75%" } });
+    gsap.from(".rule", { y: 40, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".rules-grid", start: "top 85%" } });
+    gsap.to(".rules-close .rw", { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: ".rules-close", start: "top 85%", end: "bottom 55%", scrub: true } });
+
     gsap.from(".cls-heading span", { yPercent: 40, opacity: 0, duration: 1.3, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".cls-heading", start: "top 85%" } });
     gsap.from([".cls-text", ".cls-cta"], { y: 30, opacity: 0, duration: 1.1, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".cls-sub", start: "top 90%" } });
 
