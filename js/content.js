@@ -28,12 +28,10 @@ window.SITE = {
      thumb:   optional image; YouTube thumbnails are pulled automatically.
      preview: optional short muted mp4 that plays on hover.            */
   videos: [
-    { title: "Video Title One",   category: "Ad",          views: "2.4M", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Two",   category: "Music Video", views: "1.1M", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Three", category: "Movie",       views: "870K", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Four",  category: "Ad",          views: "640K", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Five",  category: "Music Video", views: "520K", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Six",   category: "Movie",       views: "410K", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "New Music", category: "Music Video", views: "", youtube: "",
+      file: "assets/videos/new-music.mp4", thumb: "assets/images/new-music.jpg", preview: "assets/videos/new-music-preview.mp4" },
+    { title: "UGC Brand Story", category: "Ad", views: "", youtube: "",
+      file: "assets/videos/ugc-brand-story.mp4", thumb: "assets/images/ugc-brand-story.jpg", preview: "assets/videos/ugc-brand-story-preview.mp4" },
   ],
 
   /* ---------------- SERVICES (client work) ----------------

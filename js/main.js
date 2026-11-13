@@ -135,6 +135,13 @@
 
     // thumbnail strip along the bottom
     $("#heroStrip").innerHTML = S.videos.slice(0, 5).map((v, i) => `<div class="strip-card" data-i="${i}">${media(v, i)}<small>${esc(v.category)}</small></div>`).join("");
+    $$(".strip-card").forEach((card, i) => {
+      const v = S.videos[i]; if (!v.preview) return;
+      card.insertAdjacentHTML("beforeend", `<video class="media prev" src="${esc(v.preview)}" muted loop playsinline preload="none"></video>`);
+      const pv = $("video", card);
+      card.addEventListener("mouseenter", () => pv.play().catch(() => {}));
+      card.addEventListener("mouseleave", () => { pv.pause(); pv.currentTime = 0; });
+    });
     $("#heroStrip").addEventListener("click", e => { const c = e.target.closest(".strip-card"); if (c) openModal(S.videos[c.dataset.i]); });
 
     $("#statementText").innerHTML = S.statement.split(/\s+/).map(w => {
@@ -146,7 +153,7 @@
       <article class="vcard" data-i="${i}">
         <div class="vframe">${media(v, i)}${v.preview ? `<video src="${esc(v.preview)}" muted loop playsinline preload="none"></video>` : ""}<span class="play"></span></div>
         <div class="vinfo"><h3><span class="vnum">${pad2(i + 1)}</span>${esc(v.title)}</h3>
-          <div class="vtags"><span>${esc(v.category)}</span><span class="views">${esc(v.views)} views</span></div></div>
+          <div class="vtags"><span>${esc(v.category)}</span>${v.views ? `<span class="views">${esc(v.views)} views</span>` : ""}</div></div>
       </article>`).join("");
     $("#workTotal").textContent = pad2(S.videos.length);
     $("#workTrack").addEventListener("click", e => { const c = e.target.closest(".vcard"); if (c) openModal(S.videos[c.dataset.i]); });
