@@ -486,15 +486,17 @@
     gsap.set(strip, { opacity: 0, y: 80 });
     // ----- logo sting (same animation as the King Francis video sting, without sound) -----
     const [kFirst, ...kRest] = S.name.split(" ");
-    $("#ldKing").textContent = kFirst;
-    $("#ldName").innerHTML = [...(kRest.join(" ") || kFirst)].map(c => `<span>${c === " " ? "&nbsp;" : esc(c)}</span>`).join("");
+    const ldWords = [kFirst, kRest.join(" ")].filter(Boolean);
+    $("#ldName").innerHTML = ldWords.map((w, wi) => [...w].map(c => `<span class="${wi === 0 && ldWords.length > 1 ? "gold" : ""}">${esc(c)}</span>`).join("")).join('<span>&nbsp;</span>');
     const ldR = $("#ldLine").getBoundingClientRect(), ldLift = Math.round(innerHeight / 2 - (ldR.top + ldR.height / 2));
     const HIT = 1.45; // contact: the line snaps wide, the name rises out of it
     const P = 3.05;   // the panels open onto the hero
+    const ldCount = { v: 0 };
     gsap.timeline({ delay: 0.15 })
       .set("#ldCarry", { y: ldLift }, 0)
       .set("#ldName span", { yPercent: 108 }, 0)
-      .set("#ldKing", { opacity: 1 }, HIT + 0.45)
+      .fromTo("#ldCount", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.1)
+      .to(ldCount, { v: 100, duration: P - 0.35, ease: "power2.inOut", onUpdate: () => ($("#count").textContent = Math.round(ldCount.v)) }, 0)
       .fromTo("#ldLine", { scaleX: 0.012, scaleY: 1.6 }, { scaleX: 0.42, scaleY: 1, duration: 0.9, ease: "power3.out" }, 0)
       .to("#ldLine", { scaleX: 0.34, duration: 0.3, ease: "power2.inOut" }, 0.9)
       .to("#ldLine", { scaleX: 1.06, duration: 0.25, ease: "power3.in" }, 1.2)
@@ -505,8 +507,7 @@
       .to("#ldFlash", { opacity: 0, duration: 0.7, ease: "power2.in" }, HIT + 0.13)
       .to("#ldGlow", { opacity: 1, scale: 1, duration: 1, ease: "power3.out" }, HIT)
       .to("#ldCarry", { y: 0, duration: 0.9, ease: "power3.out" }, HIT)
-      .to("#ldName span", { yPercent: 0, duration: 0.85, ease: "expo.out", stagger: 0.05 }, HIT)
-      .fromTo("#ldKing", { clipPath: "inset(-20% 106% -20% -5%)", x: -18 }, { clipPath: "inset(-20% -10% -20% -5%)", x: 0, duration: 0.85, ease: "power2.out" }, HIT + 0.45)
+      .to("#ldName span", { yPercent: 0, duration: 0.85, ease: "expo.out", stagger: 0.035 }, HIT)
       .fromTo("#ldLockup", { scale: 0.985 }, { scale: 1.06, duration: P - HIT + 0.4, ease: "none" }, HIT)
       .to(["#ldCarry", "#ldGlow"], { opacity: 0, scale: 1.12, duration: 0.55, ease: "power2.in" }, P - 0.25)
       .to(".loader-panel.top", { yPercent: -100, duration: 1.2, ease: "expo.inOut" }, P)

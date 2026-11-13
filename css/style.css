@@ -49,10 +49,12 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .loader-panel.top { top: 0; } .loader-panel.bottom { bottom: 0; }
 .loader-inner { position: relative; display: grid; place-items: center; }
 .loader-glow { position: absolute; left: 50%; top: 50%; width: min(1500px, 160vw); height: min(900px, 90vh); translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(217,180,108,.22), rgba(217,180,108,.07) 55%, rgba(217,180,108,0)); opacity: 0; pointer-events: none; }
-.ld-lockup { display: flex; flex-direction: column; align-items: flex-start; --ld: min(15.5vw, 170px); }
-.ld-king { position: relative; z-index: 2; font-family: var(--serif); font-style: italic; font-size: calc(var(--ld) * .64); line-height: 1; color: var(--gold-hi); margin: 0 0 calc(var(--ld) * -.25) calc(var(--ld) * .03); padding: 0 .12em .12em 0; text-shadow: 0 0 28px rgba(217,180,108,.45); clip-path: inset(-20% 106% -20% -5%); opacity: 0; }
+.ld-lockup { display: flex; flex-direction: column; align-items: flex-start; --ld: min(11.5vw, 118px); }
+.ld-name .gold { color: var(--gold-hi); text-shadow: 0 0 28px rgba(217,180,108,.4); }
+.ld-count { align-self: center; margin-top: calc(var(--ld) * .32); font-family: var(--serif); font-style: italic; font-size: clamp(18px, calc(var(--ld) * .2), 24px); color: var(--gold); font-variant-numeric: tabular-nums; }
+.ld-count i { font-style: normal; font-size: .64em; margin-left: 2px; }
 .ld-mask { overflow: hidden; padding-top: calc(var(--ld) * .13); margin-top: calc(var(--ld) * -.13); }
-.ld-name { display: flex; text-transform: uppercase; font-family: var(--display); font-size: var(--ld); line-height: .9; letter-spacing: .005em; color: var(--ink); white-space: nowrap; }
+.ld-name { display: flex; gap: 0; text-transform: uppercase; font-family: var(--display); font-size: var(--ld); line-height: .9; letter-spacing: .005em; color: var(--ink); white-space: nowrap; }
 .ld-name span { display: inline-block; }
 .ld-line { position: relative; width: 100%; height: 3px; margin-top: calc(var(--ld) * .076); transform: scaleX(.012); }
 .ld-line i { position: absolute; inset: 0; border-radius: 4px; background: linear-gradient(90deg, rgba(148,113,58,0), var(--gold) 18%, var(--gold-hi) 50%, var(--gold) 82%, rgba(148,113,58,0)); box-shadow: 0 0 18px 2px rgba(217,180,108,.55), 0 0 60px 6px rgba(217,180,108,.25); }
