@@ -3,35 +3,54 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Where are we in our process?</title>
+  <title>Our Process · King Francs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="process-page">
-  <div class="progress" id="progress"></div>
-  <div class="cursor" id="cursor"><span id="cursorText"></span></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"><span id="cursorText"></span></div>
   <div class="grain"></div>
 
-  <header class="nav scrolled" id="nav">
-    <a href="index.html" class="logo" data-name-short></a>
-    <a href="index.html#courses" class="btn btn-sm btn-ghost magnetic">← Back to courses</a>
+  <header class="nav" id="nav">
+    <a href="index.html" class="logo">
+      <svg class="crown" viewBox="0 0 64 40" aria-hidden="true"><path d="M4 34 L8 8 L22 22 L32 4 L42 22 L56 8 L60 34 Z" /></svg>
+      <span data-name></span>
+    </a>
+    <a href="index.html#courses" class="btn btn-line btn-sm magnetic"><span>← Back to courses</span></a>
   </header>
 
-  <main class="section process">
-    <div class="hero-bg"><div class="blob b1"></div><div class="blob b2"></div></div>
-    <span class="kicker reveal">Course roadmap</span>
-    <h1 class="reveal">Where are we in <em>our process?</em></h1>
-    <div class="overall reveal">
-      <div class="overall-top"><span>Overall progress</span><b id="overallPct">0%</b></div>
-      <div class="overall-bar"><i id="overallBar"></i></div>
-    </div>
-    <ol class="timeline" id="timeline"></ol>
+  <main>
+    <section class="pp-hero">
+      <canvas id="dust"></canvas>
+      <div class="hero-glow"></div>
+      <span class="kicker">✦ Course roadmap</span>
+      <h1 class="pp-title split">Where are we in <em>our process?</em></h1>
+      <div class="pp-overall">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120" class="ring"><circle cx="60" cy="60" r="52" class="ring-bg" /><circle cx="60" cy="60" r="52" class="ring-fg" id="ringFg" /></svg>
+          <div class="ring-label"><b id="overallPct">0%</b><span>complete</span></div>
+        </div>
+        <div class="pp-now"><span>Currently in</span><strong id="nowStep"></strong></div>
+      </div>
+    </section>
+
+    <section class="pp-timeline">
+      <div class="tl-line"><i id="tlFill"></i></div>
+      <ol id="timeline"></ol>
+    </section>
   </main>
 
-  <footer class="footer"><span>© <span id="year"></span> <span data-name></span></span><a href="index.html">Home</a></footer>
+  <footer class="footer">
+    <div class="footer-name" data-fit><span data-name></span></div>
+    <div class="footer-row"><span>© <span class="yr"></span> <span data-name></span></span><a href="index.html">Home</a></div>
+  </footer>
 
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
 </body>

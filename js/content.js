@@ -1,17 +1,20 @@
 /* =====================================================================
-   SITE CONTENT — edit this file to update the website.
+   SITE CONTENT: edit this file to update the website.
    You never need to touch the HTML/CSS to swap in your own content.
    ===================================================================== */
 
 window.SITE = {
-  name: "Francis Unigwe",
-  tagline: "Creator · Storyteller · Educator",
-  heroLine: ["I make stories", "people can't", "stop watching."],
-  heroSub:
-    "Videos that move millions, and courses that teach you how to do the same.",
+  name: "King Francs",
+  heroSub: "Videos that stop the scroll, and courses that show you exactly how they're made.",
 
-  // Optional looping background video for the hero (muted). Leave "" to use the animated gradient.
+  // Optional looping background video for the hero (muted). Leave "" for the animated gold dust only.
   heroVideo: "", // e.g. "assets/videos/showreel.mp4"
+  // Video that plays when someone clicks the round "Play reel" badge. Leave both "" to use your first video.
+  reel: { youtube: "", file: "" },
+
+  // Big sentence that lights up word by word as you scroll. Wrap words in *stars* to make them gold.
+  statement:
+    "Every frame is a *decision.* Every story is built to be *felt,* *shared* and *remembered* long after the screen goes dark.",
 
   /* ---------------- POPULAR VIDEOS ----------------
      Each video can be EITHER:
@@ -31,7 +34,7 @@ window.SITE = {
   /* ---------------- ABOUT ---------------- */
   about: {
     photo: "assets/images/me.jpg", // put your photo here (portrait works best)
-    heading: "Hi, I'm Francis.",
+    heading: "The man behind the frame.",
     paragraphs: [
       "Replace this with your story: where you started, what you create, and why people keep coming back to watch.",
       "Add a second paragraph about your mission, your audience, and what makes your approach different.",
@@ -46,9 +49,9 @@ window.SITE = {
 
   /* ---------------- COURSES ---------------- */
   courses: [
-    { title: "Course One",   level: "Beginner",     desc: "Short description of what students learn.", price: "$—", link: "#" },
-    { title: "Course Two",   level: "Intermediate", desc: "Short description of what students learn.", price: "$—", link: "#" },
-    { title: "Course Three", level: "Advanced",     desc: "Short description of what students learn.", price: "$—", link: "#" },
+    { title: "Course One",   level: "Beginner",     desc: "Short description of what students learn in this course.", price: "$—", link: "#" },
+    { title: "Course Two",   level: "Intermediate", desc: "Short description of what students learn in this course.", price: "$—", link: "#" },
+    { title: "Course Three", level: "Advanced",     desc: "Short description of what students learn in this course.", price: "$—", link: "#" },
   ],
 
   // The "Where are we in our process?" button. Points to the built-in process page by default;
@@ -58,11 +61,11 @@ window.SITE = {
   /* ---------------- PROCESS PAGE ----------------
      status: "done" | "current" | "upcoming"                             */
   process: [
-    { step: "Discovery",   status: "done",     date: "Phase 1", desc: "We learn your goals and where you're starting from." },
-    { step: "Foundations", status: "done",     date: "Phase 2", desc: "Core skills: storytelling, hooks, and structure." },
-    { step: "Production",  status: "current",  date: "Phase 3", desc: "Hands-on: shooting, editing, and creating with AI tools." },
-    { step: "Launch",      status: "upcoming", date: "Phase 4", desc: "Publish, grow, and analyse what works." },
-    { step: "Mastery",     status: "upcoming", date: "Phase 5", desc: "Scale your channel and build a lasting brand." },
+    { step: "Discovery",   status: "done",     date: "Phase 01", desc: "We learn your goals and where you're starting from." },
+    { step: "Foundations", status: "done",     date: "Phase 02", desc: "Core skills: storytelling, hooks, and structure." },
+    { step: "Production",  status: "current",  date: "Phase 03", desc: "Hands-on: shooting, editing, and creating with AI tools." },
+    { step: "Launch",      status: "upcoming", date: "Phase 04", desc: "Publish, grow, and analyse what works." },
+    { step: "Mastery",     status: "upcoming", date: "Phase 05", desc: "Scale your channel and build a lasting brand." },
   ],
 
   /* ---------------- CONTACT / SOCIALS ---------------- */
