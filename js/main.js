@@ -4,7 +4,6 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const esc = (s = "") => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const pad2 = n => String(n).padStart(2, "0");
-  const CROWN = '<svg class="crown" viewBox="0 0 64 40" aria-hidden="true"><path d="M4 34 L8 8 L22 22 L32 4 L42 22 L56 8 L60 34 Z"/></svg>';
 
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const motion = !!(window.gsap && window.ScrollTrigger) && !reduce;
@@ -74,7 +73,7 @@
     if (!modal) return;
     if (v.youtube) mBody.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(v.youtube)}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
     else if (v.file) mBody.innerHTML = `<video src="${esc(v.file)}" controls autoplay playsinline></video>`;
-    else mBody.innerHTML = `<div class="modal-empty">${CROWN.replace('class="crown"', 'class="crown" style="width:54px;color:var(--gold)"')}<h3>${esc(v.title || "Your reel")}</h3><p>Add a YouTube ID or video file for this in js/content.js</p></div>`;
+    else mBody.innerHTML = `<div class="modal-empty"><h3>${esc(v.title || "Your reel")}</h3><p>Add a YouTube ID or video file for this in js/content.js</p></div>`;
     modal.classList.add("open"); modal.setAttribute("aria-hidden", "false");
     lenis && lenis.stop();
   };
@@ -123,7 +122,7 @@
       card.addEventListener("mouseleave", () => { vid.pause(); vid.currentTime = 0; });
     });
 
-    const mItem = `<span>${esc(S.name)} ${CROWN}</span>`;
+    const mItem = `<span>${esc(S.name)} <i class="mq-sep">✦</i></span>`;
     $(".marquee-track").innerHTML = mItem.repeat(8);
 
     const A = S.about;
