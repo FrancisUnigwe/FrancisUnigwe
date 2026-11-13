@@ -122,6 +122,14 @@
       card.addEventListener("mouseleave", () => { vid.pause(); vid.currentTime = 0; });
     });
 
+    // services
+    const SV = S.services || [];
+    $("#svcList").innerHTML = SV.map((v, i) => `
+      <li class="svc"><a href="#contact" data-scroll data-i="${i}">
+        <span class="svc-num">${pad2(i + 1)}</span><span class="svc-title">${esc(v.title)}</span>
+        <span class="svc-desc">${esc(v.desc)}</span><span class="svc-arrow">→</span></a></li>`).join("");
+    $("#svcPreviewInner").innerHTML = SV.map((v, i) => `<div>${media(v, i)}<small>${esc(v.title)}</small></div>`).join("");
+
     const mItem = `<span>${esc(S.name)} <i class="mq-sep">✦</i></span>`;
     $(".marquee-track").innerHTML = mItem.repeat(8);
 
@@ -349,6 +357,20 @@
 
     // ----- statement words light up -----
     gsap.to(".statement-text .sw", { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: ".statement", start: "top 70%", end: "bottom 65%", scrub: true } });
+
+    // ----- services rows + cursor-follow preview -----
+    gsap.from(".svc", { y: 60, opacity: 0, duration: 1.2, ease: "expo.out", stagger: 0.1, scrollTrigger: { trigger: "#svcList", start: "top 85%" } });
+    gsap.from(".svc-cta", { y: 40, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: ".svc-cta", start: "top 92%" } });
+    if (fine) {
+      const pv = $("#svcPreview"), inner = $("#svcPreviewInner");
+      const px = gsap.quickTo(pv, "x", { duration: 0.7, ease: "power3" }), py = gsap.quickTo(pv, "y", { duration: 0.7, ease: "power3" });
+      const pr = gsap.quickTo(pv, "rotation", { duration: 0.8, ease: "power3" });
+      let lastX = 0;
+      $("#svcList").addEventListener("mousemove", e => { if (e.target.closest(".svc a")) pv.classList.add("on"); px(e.clientX); py(e.clientY); pr(Math.max(-12, Math.min(12, (e.clientX - lastX) * 0.6))); lastX = e.clientX; });
+      $$(".svc a").forEach(a => a.addEventListener("mouseenter", () => { inner.style.transform = `translateY(${-a.dataset.i * 100}%)`; pv.classList.add("on"); }));
+      $("#svcList").addEventListener("mouseleave", () => { pv.classList.remove("on"); pr(0); });
+      lenis && lenis.on("scroll", () => pv.classList.remove("on"));
+    }
 
     // ----- horizontal video reel (desktop) -----
     const mm = gsap.matchMedia();

@@ -5,7 +5,7 @@
 
 window.SITE = {
   name: "King Francis",
-  heroSub: "AI films that stop the scroll, and courses that show you exactly how they're made.",
+  heroSub: "I create AI ads, movies and music videos for clients, and teach students exactly how it's done.",
 
   // Optional looping background video for the hero (muted). Leave "" for the animated gold dust only.
   heroVideo: "", // e.g. "assets/videos/showreel.mp4"
@@ -23,12 +23,21 @@ window.SITE = {
      thumb:   optional image; YouTube thumbnails are pulled automatically.
      preview: optional short muted mp4 that plays on hover.            */
   videos: [
-    { title: "Video Title One",   category: "AI Film",     views: "2.4M", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Two",   category: "Commercial",  views: "1.1M", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Three", category: "Short Film",  views: "870K", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Four",  category: "AI Film",     views: "640K", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Five",  category: "Commercial",  views: "520K", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Six",   category: "Short Film",  views: "410K", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title One",   category: "Ad",          views: "2.4M", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title Two",   category: "Music Video", views: "1.1M", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title Three", category: "Movie",       views: "870K", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title Four",  category: "Ad",          views: "640K", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title Five",  category: "Music Video", views: "520K", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title Six",   category: "Movie",       views: "410K", youtube: "", file: "", thumb: "", preview: "" },
+  ],
+
+  /* ---------------- SERVICES (client work) ----------------
+     thumb: optional image shown in the hover preview.                 */
+  services: [
+    { title: "Ads & Commercials",    desc: "Scroll-stopping AI ads for brands and products, built to sell.", thumb: "" },
+    { title: "Movies & Short Films", desc: "Cinematic AI storytelling, from first concept to final cut.",     thumb: "" },
+    { title: "Music Videos",         desc: "Visuals that match the energy of the track and the artist.",      thumb: "" },
+    { title: "Brand Content & More", desc: "Social content, visuals and anything else your brand can imagine.", thumb: "" },
   ],
 
   /* ---------------- ABOUT ---------------- */
