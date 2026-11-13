@@ -139,7 +139,7 @@
     img.onerror = () => img.remove();
     img.src = A.photo;
     $("#aboutHeading").textContent = A.heading;
-    $("#aboutBody").innerHTML = A.paragraphs.map(p => `<p>${esc(p)}</p>`).join("");
+    $("#aboutBody").innerHTML = A.paragraphs.map(p => `<p>${esc(p)}</p>`).join("") + (A.signoff ? `<p class="about-signoff"><em>${esc(A.signoff)}</em></p>` : "");
     $("#stats").innerHTML = A.stats.map(s => `<div class="stat"><b data-count="${+s.value}" data-suffix="${esc(s.suffix)}">${motion ? "0" : (+s.value).toLocaleString()}${motion ? "" : esc(s.suffix)}</b><span>${esc(s.label)}</span></div>`).join("");
 
     $("#courseStack").innerHTML = S.courses.map((c, i) => `

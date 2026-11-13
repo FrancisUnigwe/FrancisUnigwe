@@ -45,14 +45,19 @@ window.SITE = {
     photo: "assets/images/me.jpg", // put your photo here (portrait works best)
     heading: "The man behind the frame.",
     paragraphs: [
-      "Replace this with your story: how you got into AI filmmaking, what you create, and why people keep coming back to watch.",
-      "Add a second paragraph about your mission, your audience, and what makes your approach different.",
+      "I'm King Francis, an AI filmmaker, creative content producer and visual storyteller passionate about pushing the boundaries of what's possible with creativity and technology.",
+      "Over the past two years, I've dedicated myself to AI filmmaking, transforming ideas into cinematic brand commercials, product advertisements and visually compelling stories. With over 2,000 creative projects completed and collaborations with more than 50 brands in the last two years, I've built experience creating content that connects creativity with brand storytelling.",
+      "My work has generated over 2 million views across multiple platforms, reaching an audience of over 10,000 and counting.",
+      "But for me, filmmaking goes beyond creating beautiful visuals. It's about telling stories that capture attention, communicate value and leave a lasting impression.",
+      "Today, I work with brands looking to bring their ideas to life through innovative AI-powered visual content, while also helping aspiring creators discover, learn and master the art of AI filmmaking.",
+      "Whether you're a brand looking for your next creative partner or a creator ready to explore the future of filmmaking, you're in the right place.",
     ],
+    signoff: "Let's create something extraordinary.",
     stats: [
-      { value: 10, suffix: "M+", label: "Total views" },
-      { value: 250, suffix: "K", label: "Followers" },
-      { value: 120, suffix: "+", label: "Videos made" },
-      { value: 3000, suffix: "+", label: "Students" },
+      { value: 2000, suffix: "+",  label: "Creative projects" },
+      { value: 50,   suffix: "+",  label: "Brands worked with" },
+      { value: 2,    suffix: "M+", label: "Views across platforms" },
+      { value: 10,   suffix: "K+", label: "Audience and counting" },
     ],
   },
 
