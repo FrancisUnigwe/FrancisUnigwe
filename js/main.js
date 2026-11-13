@@ -196,7 +196,7 @@
     $("#clsIntro").textContent = S.classIntro || "";
     $("#clsRegister").href = S.coursesUrl;
     const all = $("#allCourses");
-    all.href = S.coursesUrl; all.textContent = `All classes on ${S.coursesPlatform || "our platform"} \u2197`;
+    all.href = S.coursesUrl; all.textContent = "All live classes \u2197";
     const li = arr => `<ul>${arr.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
     $("#clsList").innerHTML = (S.classes || []).map((c, i) => {
       const has = (c.items && c.items.length) || (c.groups && c.groups.length) || c.text || c.prize;
