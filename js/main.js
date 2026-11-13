@@ -547,9 +547,6 @@
     gsap.from(".cls", { y: 30, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.06, scrollTrigger: { trigger: "#clsList", start: "top 85%" } });
     gsap.from([".cls-heading", ".cls-text", ".cls-register", ".cls-all"], { y: 30, opacity: 0, duration: 1.1, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".cls-intro", start: "top 85%" } });
 
-    // ----- process CTA -----
-    gsap.fromTo(".pc-ring", { rotate: -40, scale: 0.7 }, { rotate: 40, scale: 1.15, ease: "none", scrollTrigger: { trigger: ".process-cta", start: "top bottom", end: "bottom top", scrub: true } });
-    gsap.from(".pc-btn", { scale: 0, rotate: -90, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".process-cta", start: "top 60%" } });
   }
 
   /* ================= PROCESS MOTION ================= */

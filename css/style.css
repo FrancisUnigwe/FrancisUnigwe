@@ -291,15 +291,6 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .cls-prize b { font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; background: var(--gold); color: #0a0805; padding: 4px 8px; border-radius: 3px; }
 .cls-inner li::before { content: "+"; position: absolute; left: 0; top: 0; color: var(--gold); font-weight: 700; }
 
-/* ---------- process cta ---------- */
-.process-cta { position: relative; margin: 50px var(--pad) 0; padding: clamp(70px, 10vw, 150px) clamp(24px, 5vw, 80px); border-radius: 10px; overflow: hidden; background: radial-gradient(120% 140% at 0% 0%, #2c2210, #0d0b07 60%); border: 1px solid rgba(217,180,108,.25); }
-.pc-ring { position: absolute; right: -12vw; top: 50%; width: 60vw; aspect-ratio: 1; translate: 0 -50%; border-radius: 50%; border: 1px solid rgba(217,180,108,.18); box-shadow: inset 0 0 0 6vw rgba(217,180,108,.025), inset 0 0 0 12vw rgba(217,180,108,.02); }
-.pc-title { position: relative; font-family: var(--display); text-transform: uppercase; font-size: clamp(48px, 8.4vw, 140px); line-height: .92; max-width: 11ch; }
-.pc-btn { position: absolute; right: clamp(24px, 6vw, 100px); bottom: clamp(40px, 6vw, 100px); width: clamp(130px, 13vw, 190px); aspect-ratio: 1; border-radius: 50%; background: var(--gold); color: #0a0805; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center; font-weight: 600; font-size: 14px; line-height: 1.2; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; transition: background .4s; }
-.pc-btn b { font-size: 28px; transition: transform .5s var(--ease); }
-.pc-btn:hover { background: var(--gold-hi); }
-.pc-btn:hover b { transform: translateX(8px); }
-
 /* ---------- contact ---------- */
 .contact { padding: clamp(60px, 7vw, 110px) var(--pad) 60px; }
 .contact-card { position: relative; overflow: hidden; max-width: 1240px; margin: 0 auto; padding: clamp(48px, 7vw, 96px) clamp(18px, 5vw, 80px) clamp(36px, 5vw, 70px); border-radius: 22px; border: 1px solid var(--line); background: linear-gradient(160deg, #1a1813, #0e0d0b 60%); text-align: center; display: flex; flex-direction: column; align-items: center; }
@@ -422,7 +413,6 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
   .work-counter, .work-progress { display: none; }
   .vinfo { flex-direction: column; gap: 12px; }
   .vtags { justify-content: flex-start; }
-  .pc-btn { position: relative; right: auto; bottom: auto; margin-top: 40px; }
   .svc a { grid-template-columns: 1fr; gap: 8px; padding: 26px 4px; }
   .svc-arrow, .svc-preview { display: none; }
   .svc a:hover .svc-title { transform: none; }
