@@ -9,8 +9,8 @@ All text, videos, courses and the process roadmap live in **`js/content.js`**. Y
 - **Your photo:** save it as `assets/images/me.jpg` (a portrait works best).
 - **Popular videos:** for each video, set `youtube: "VIDEO_ID"`, or upload an mp4 to `assets/videos/` and set `file:`.
   Optional `preview:` is a short muted clip that plays when someone hovers over the card.
-- **Hero background video:** set `heroVideo: "assets/videos/showreel.mp4"`.
-- **Play the reel badge:** set `reel.youtube` or `reel.file` (defaults to your first video).
+- **Background video (top of page):** set `heroVideo: "assets/videos/showreel.mp4"`. Keep it short (15–30s), muted-friendly and compressed (under ~10 MB).
+- **Top headline:** edit `heroLines` (last line is gold), `heroMeta` and `heroSub`.
 - **Vision statement:** edit `statement`; wrap words in `*stars*` to make them gold.
 - **Services:** edit the `services` list (ads, movies, music videos…). `thumb` is the hover preview image.
 - **Courses:** edit the `courses` list. Buttons open your Nestuge page (`coursesUrl`) unless a course has its own `link`.

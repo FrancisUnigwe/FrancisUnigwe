@@ -91,17 +91,45 @@
 
   /* ---------- HOME CONTENT ---------- */
   if (isHome) {
-    $(".ht-king em").textContent = firstName;
-    const hn = $("#heroName");
-    hn.innerHTML = `<span class="inner">${[...lastName].map(c => `<span class="ch">${c === " " ? "&nbsp;" : esc(c)}</span>`).join("")}</span>`;
-    fit(hn, $(".inner", hn), () => innerHeight * 0.5);
+    // headline lines (last one gold)
+    const lines = S.heroLines || [S.name];
+    $("#heroTitle").innerHTML = lines.map((l, i) => `<span class="hl"><span class="${i === lines.length - 1 ? "gold" : ""}">${esc(l)}</span></span>`).join("");
+    const MI = [
+      '<svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4" stroke="currentColor" stroke-width="1.8"/></svg>',
+      '<svg class="ico" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.2 1.3-6.6L2.5 9.3l6.6-.8z" fill="currentColor"/></svg>',
+      '<svg class="ico" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" fill="currentColor"/></svg>',
+    ];
+    $("#heroMeta").innerHTML = (S.heroMeta || []).map((m, i) => `<li>${MI[i % MI.length]}${esc(m)}</li>`).join("");
+    $("#heroMail").href = `mailto:${S.email}`;
 
-    if (S.heroVideo) $("#heroVideo").src = S.heroVideo; else $("#heroVideo").remove();
+    const ICONS = {
+      youtube: '<path fill="currentColor" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.8 15.1V8.9l5.7 3.1z"/>',
+      instagram: '<rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor"/>',
+      tiktok: '<path fill="currentColor" d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.2a6.3 6.3 0 1 0 5.3 6.2V8.6a8 8 0 0 0 4.6 1.5V6.8a4.7 4.7 0 0 1-4.6-4.8z"/>',
+      facebook: '<path fill="currentColor" d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/>',
+      x: '<path fill="currentColor" d="M18.2 2H21l-6.5 7.4L22 22h-6l-4.7-6.1L5.9 22H3l7-8L2.5 2h6.1l4.2 5.6zm-1 18h1.6L7.9 3.9H6.2z"/>',
+      linkedin: '<path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zm7 0h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21h-4z"/>',
+    };
+    $("#heroSocial").innerHTML = S.socials.map(so => {
+      const ic = ICONS[so.label.toLowerCase()];
+      return `<a href="${esc(so.url)}" target="_blank" rel="noopener" aria-label="${esc(so.label)}">${ic ? `<svg viewBox="0 0 24 24">${ic}</svg>` : esc(so.label)}</a>`;
+    }).join("") + (S.handle ? `<span class="handle">${esc(S.handle)}</span>` : "");
 
-    $("#heroTiles").innerHTML = S.videos.slice(0, 3).map((v, i) =>
-      `<div class="tile t${i + 1}" data-i="${i}">${media(v, i)}<small>${esc(v.title)}</small></div>`).join("");
-    $("#heroTiles").addEventListener("click", e => { const t = e.target.closest(".tile"); if (t) openModal(S.videos[t.dataset.i]); });
-    $("#reelBtn").addEventListener("click", () => openModal(S.reel && (S.reel.youtube || S.reel.file) ? { ...S.reel, title: "The reel" } : S.videos[0] || {}));
+    // background video
+    const hv = $("#heroVideo"), snd = $("#soundBtn");
+    if (S.heroVideo) {
+      hv.src = S.heroVideo;
+      hv.addEventListener("playing", () => ($(".hero-placeholder").style.opacity = 0), { once: true });
+      snd.hidden = false;
+      snd.addEventListener("click", () => {
+        hv.muted = !hv.muted; if (!hv.muted) hv.play().catch(() => {});
+        snd.classList.toggle("on", !hv.muted); $("b", snd).textContent = hv.muted ? "Sound off" : "Sound on";
+      });
+    } else hv.parentNode.removeChild(hv);
+
+    // thumbnail strip along the bottom
+    $("#heroStrip").innerHTML = S.videos.slice(0, 5).map((v, i) => `<div class="strip-card" data-i="${i}">${media(v, i)}<small>${esc(v.category)}</small></div>`).join("");
+    $("#heroStrip").addEventListener("click", e => { const c = e.target.closest(".strip-card"); if (c) openModal(S.videos[c.dataset.i]); });
 
     $("#statementText").innerHTML = S.statement.split(/\s+/).map(w => {
       const g = /^\*.*\*$/.test(w) || /^\*.*\*[.,!?]$/.test(w);
@@ -222,8 +250,9 @@
       }));
     };
     size(); addEventListener("resize", size);
-    canvas.parentElement.addEventListener("mousemove", e => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
-    canvas.parentElement.addEventListener("mouseleave", () => { mouse.x = mouse.y = -9999; });
+    const host = canvas.closest("section") || canvas.parentElement;
+    host.addEventListener("mousemove", e => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+    host.addEventListener("mouseleave", () => { mouse.x = mouse.y = -9999; });
     const draw = () => {
       ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = "lighter";
@@ -293,7 +322,7 @@
     const rx = gsap.quickTo(ring, "x", { duration: 0.5, ease: "power3" }), ry = gsap.quickTo(ring, "y", { duration: 0.5, ease: "power3" });
     addEventListener("mousemove", e => { dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY); });
     document.addEventListener("mouseover", e => {
-      const play = e.target.closest(".vcard, .tile"), link = e.target.closest("a, button");
+      const play = e.target.closest(".vcard, .strip-card"), link = e.target.closest("a, button");
       ring.classList.toggle("label", !!play); txt.textContent = play ? "Play" : "";
       ring.classList.toggle("hover", !play && !!link);
       gsap.to(dot, { scale: play || link ? 0 : 1, duration: 0.3 });
@@ -307,56 +336,42 @@
 
   /* ================= HOME MOTION ================= */
   if (isHome) {
-    const chars = $$("#heroName .ch"), tiles = $$(".tile");
-    const heroBits = [".hero-sub", ".hero-cta", ".hero-top", ".reel-badge"];
+    const lines = $$("#heroTitle .hl > span"), strip = $$(".strip-card");
+    const heroBits = [".hero-meta", ".hero-sub", ".hero-cta", ".hero-social", ".hero-sound"];
 
     // ----- intro -----
     document.body.classList.add("is-loading");
     lenis && lenis.stop();
-    gsap.set(chars, { yPercent: 115 });
-    gsap.set(".ht-king em", { yPercent: 110 });
-    gsap.set(tiles, { opacity: 0, scale: 0.6, filter: "blur(12px)" });
-    gsap.set(heroBits, { opacity: 0, y: 30 });
+    gsap.set(lines, { yPercent: 110 });
+    gsap.set("#heroMedia", { scale: 1.18, opacity: 0 });
+    gsap.set(heroBits, { opacity: 0, y: 24 });
+    gsap.set(strip, { opacity: 0, y: 80 });
     gsap.set(".loader-name span", { yPercent: 110 });
 
     const count = { v: 0 };
-    const intro = gsap.timeline({ delay: 0.2 });
-    intro
+    gsap.timeline({ delay: 0.2 })
       .to(".loader-name span", { yPercent: 0, duration: 1, ease: "expo.out" })
       .to(count, { v: 100, duration: 1.6, ease: "power2.inOut", onUpdate: () => ($("#count").textContent = Math.round(count.v)) }, 0)
       .to(".loader-inner", { opacity: 0, y: -30, duration: 0.6, ease: "power2.in" }, 1.8)
       .to(".loader-panel.top", { yPercent: -100, duration: 1.2, ease: "expo.inOut" }, 2.2)
       .to(".loader-panel.bottom", { yPercent: 100, duration: 1.2, ease: "expo.inOut" }, 2.2)
-      .to(".ht-king em", { yPercent: 0, duration: 1.4, ease: "expo.out" }, 2.75)
-      .to(chars, { yPercent: 0, duration: 1.5, ease: "expo.out", stagger: 0.06 }, 2.8)
-      .to(tiles, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.6, ease: "expo.out", stagger: 0.12 }, 3.0)
-      .to(heroBits, { opacity: 1, y: 0, duration: 1.2, ease: "expo.out", stagger: 0.08 }, 3.2)
-      .add(() => { $("#loader").remove(); document.body.classList.remove("is-loading"); lenis && lenis.start(); ScrollTrigger.refresh(); }, 3.4);
+      .to("#heroMedia", { scale: 1, opacity: 1, duration: 2.4, ease: "expo.out" }, 2.4)
+      .to(lines, { yPercent: 0, duration: 1.4, ease: "expo.out", stagger: 0.12 }, 2.75)
+      .to(heroBits, { opacity: 1, y: 0, duration: 1.1, ease: "expo.out", stagger: 0.08 }, 3.1)
+      .to(strip, { opacity: 1, y: 0, duration: 1.3, ease: "expo.out", stagger: 0.08 }, 3.2)
+      .add(() => { const L = $("#loader"); L && L.parentNode.removeChild(L); document.body.classList.remove("is-loading"); lenis && lenis.start(); ScrollTrigger.refresh(); }, 3.4);
 
-    // ----- hero mouse interactions -----
+    // ----- subtle mouse parallax on the background -----
     if (fine) {
-      const cy = chars.map(c => gsap.quickTo(c, "y", { duration: 0.6, ease: "power3" }));
-      const tx = tiles.map(t => gsap.quickTo(t, "x", { duration: 1.2, ease: "power3" }));
-      const ty = tiles.map(t => gsap.quickTo(t, "yPercent", { duration: 1.2, ease: "power3" }));
-      const depth = [1, 1.8, 0.7];
-      $("#hero").addEventListener("mousemove", e => {
-        const fs = parseFloat($("#heroName").style.fontSize) || 200;
-        chars.forEach((c, i) => {
-          const r = c.getBoundingClientRect(), d = Math.abs(e.clientX - (r.left + r.width / 2));
-          const k = Math.max(0, 1 - d / (fs * 0.9));
-          cy[i](-k * fs * 0.09); c.classList.toggle("lit", k > 0.55);
-        });
-        const nx = e.clientX / innerWidth - 0.5, ny = e.clientY / innerHeight - 0.5;
-        tiles.forEach((t, i) => { tx[i](nx * 60 * depth[i]); ty[i](ny * 14 * depth[i]); });
-      });
-      $("#hero").addEventListener("mouseleave", () => { chars.forEach((c, i) => { cy[i](0); c.classList.remove("lit"); }); });
+      const bx = gsap.quickTo(".hero-media", "x", { duration: 1.4, ease: "power3" }), by = gsap.quickTo(".hero-media", "y", { duration: 1.4, ease: "power3" });
+      $("#hero").addEventListener("mousemove", e => { bx((e.clientX / innerWidth - 0.5) * -24); by((e.clientY / innerHeight - 0.5) * -16); });
     }
 
     // ----- hero scroll parallax -----
     const heroST = { trigger: "#hero", start: "top top", end: "bottom top", scrub: true };
-    gsap.to(".hero-title", { yPercent: 18, ease: "none", scrollTrigger: heroST });
-    tiles.forEach((t, i) => gsap.to(t, { y: -innerHeight * [0.35, 0.6, 0.25][i], ease: "none", scrollTrigger: heroST }));
-    gsap.to(".hero-glow", { scale: 1.5, opacity: 0, ease: "none", scrollTrigger: heroST });
+    gsap.to(".hero-media", { yPercent: 22, ease: "none", scrollTrigger: heroST });
+    gsap.to(".hero-content", { y: -120, opacity: 0, ease: "none", scrollTrigger: { ...heroST, end: "70% top" } });
+    gsap.to(".hero-strip", { y: -60, ease: "none", scrollTrigger: heroST });
 
     // ----- statement words light up -----
     gsap.to(".statement-text .sw", { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: ".statement", start: "top 70%", end: "bottom 65%", scrub: true } });

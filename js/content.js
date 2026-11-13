@@ -5,12 +5,16 @@
 
 window.SITE = {
   name: "King Francis",
-  heroSub: "I create AI ads, movies and music videos for clients, and teach students exactly how it's done.",
+  // Top of the page. The last line is shown in gold.
+  heroLines: ["Stories made with AI.", "Crafted for brands.", "Built to be remembered."],
+  heroMeta: ["AI Filmmaking & Direction", "2,000+ Projects", "50+ Brands"],
+  heroSub: "King Francis creates AI ads, movies and music videos for brands, and teaches creators exactly how it's done.",
 
-  // Optional looping background video for the hero (muted). Leave "" for the animated gold dust only.
-  heroVideo: "", // e.g. "assets/videos/showreel.mp4"
-  // Video that plays when someone clicks the round "Play reel" badge. Leave both "" to use your first video.
-  reel: { youtube: "", file: "" },
+  // Video that plays full-screen behind the top of the page (muted, looping). e.g. "assets/videos/showreel.mp4"
+  // Until you add one, an animated gold background is shown instead.
+  heroVideo: "",
+  // Your social handle shown under the buttons (optional), e.g. "@kingfrancis"
+  handle: "",
 
   // Big sentence that lights up word by word as you scroll. Wrap words in *stars* to make them gold.
   statement:

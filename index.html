@@ -7,7 +7,7 @@
   <meta name="description" content="King Francis, AI filmmaker: ads, movies and music videos for clients, plus courses for students." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -36,6 +36,7 @@
       <a href="#courses" data-scroll><i>04</i>Courses</a>
       <a href="#contact" data-scroll><i>05</i>Contact</a>
     </nav>
+    <a href="#contact" data-scroll class="btn btn-sm nav-cta magnetic"><span>Work with me</span></a>
     <button class="menu-btn magnetic" id="menuBtn" aria-expanded="false"><span class="mb-text">Menu</span><span class="mb-lines"><i></i><i></i></span></button>
   </header>
 
@@ -55,35 +56,25 @@
   <main id="top">
     <!-- HERO -->
     <section class="hero" id="hero">
-      <canvas id="dust"></canvas>
-      <video class="hero-video" id="heroVideo" muted loop playsinline autoplay></video>
-      <div class="hero-glow"></div>
-
-      <div class="hero-tiles" id="heroTiles"></div>
-
-      <div class="hero-top">
-        <span class="hi">Portfolio <b>©<span class="yr"></span></b></span>
-        <span class="hi">For clients &amp; students</span>
+      <div class="hero-media" id="heroMedia">
+        <div class="hero-placeholder"><canvas id="dust"></canvas></div>
+        <video class="hero-video" id="heroVideo" muted loop playsinline autoplay preload="auto"></video>
       </div>
+      <div class="hero-shade"></div>
 
-      <h1 class="hero-title">
-        <span class="ht-king"><em>King</em></span>
-        <span class="ht-name" id="heroName" data-fit></span>
-      </h1>
-
-      <div class="hero-bottom">
+      <div class="hero-content">
+        <h1 class="hero-title" id="heroTitle"></h1>
+        <ul class="hero-meta" id="heroMeta"></ul>
         <p class="hero-sub" data-hero-sub></p>
         <div class="hero-cta">
-          <a href="#contact" data-scroll class="btn magnetic"><span>Work with me</span></a>
-          <a href="#courses" data-scroll class="btn btn-line magnetic"><span>Explore courses</span></a>
+          <a href="#work" data-scroll class="btn btn-light magnetic"><span><svg viewBox="0 0 24 24" class="ico"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></svg>View Work</span></a>
+          <a class="btn btn-glass magnetic" id="heroMail"><span><svg viewBox="0 0 24 24" class="ico"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 7l8.5 6 8.5-6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Send a Mail</span></a>
         </div>
+        <div class="hero-social" id="heroSocial"></div>
       </div>
 
-      <button class="reel-badge magnetic" id="reelBtn" aria-label="Play reel">
-        <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
-          <text><textPath href="#circ">PLAY THE REEL ✦ PLAY THE REEL ✦ PLAY THE REEL ✦ </textPath></text></svg>
-        <span class="rb-play"></span>
-      </button>
+      <button class="hero-sound" id="soundBtn" hidden><span class="bars"><i></i><i></i><i></i><i></i></span><b>Sound off</b></button>
+      <div class="hero-strip" id="heroStrip"></div>
     </section>
 
     <!-- STATEMENT -->
