@@ -484,20 +484,38 @@
     gsap.set("#heroMedia", { scale: 1.18, opacity: 0 });
     gsap.set(heroBits, { opacity: 0, y: 24 });
     gsap.set(strip, { opacity: 0, y: 80 });
-    gsap.set(".loader-name span", { yPercent: 110 });
-
-    const count = { v: 0 };
-    gsap.timeline({ delay: 0.2 })
-      .to(".loader-name span", { yPercent: 0, duration: 1, ease: "expo.out" })
-      .to(count, { v: 100, duration: 1.6, ease: "power2.inOut", onUpdate: () => ($("#count").textContent = Math.round(count.v)) }, 0)
-      .to(".loader-inner", { opacity: 0, y: -30, duration: 0.6, ease: "power2.in" }, 1.8)
-      .to(".loader-panel.top", { yPercent: -100, duration: 1.2, ease: "expo.inOut" }, 2.2)
-      .to(".loader-panel.bottom", { yPercent: 100, duration: 1.2, ease: "expo.inOut" }, 2.2)
-      .to("#heroMedia", { scale: 1, opacity: 1, duration: 2.4, ease: "expo.out" }, 2.4)
-      .to(lines, { yPercent: 0, duration: 1.4, ease: "expo.out", stagger: 0.12 }, 2.75)
-      .to(heroBits, { opacity: 1, y: 0, duration: 1.1, ease: "expo.out", stagger: 0.08 }, 3.1)
-      .to(strip, { opacity: 1, y: 0, duration: 1.3, ease: "expo.out", stagger: 0.08 }, 3.2)
-      .add(() => { const L = $("#loader"); L && L.parentNode.removeChild(L); document.body.classList.remove("is-loading"); lenis && lenis.start(); ScrollTrigger.refresh(); }, 3.4);
+    // ----- logo sting (same animation as the King Francis video sting, without sound) -----
+    const [kFirst, ...kRest] = S.name.split(" ");
+    $("#ldKing").textContent = kFirst;
+    $("#ldName").innerHTML = [...(kRest.join(" ") || kFirst)].map(c => `<span>${c === " " ? "&nbsp;" : esc(c)}</span>`).join("");
+    const ldR = $("#ldLine").getBoundingClientRect(), ldLift = Math.round(innerHeight / 2 - (ldR.top + ldR.height / 2));
+    const HIT = 1.45; // contact: the line snaps wide, the name rises out of it
+    const P = 3.05;   // the panels open onto the hero
+    gsap.timeline({ delay: 0.15 })
+      .set("#ldCarry", { y: ldLift }, 0)
+      .set("#ldName span", { yPercent: 108 }, 0)
+      .set("#ldKing", { opacity: 1 }, HIT + 0.45)
+      .fromTo("#ldLine", { scaleX: 0.012, scaleY: 1.6 }, { scaleX: 0.42, scaleY: 1, duration: 0.9, ease: "power3.out" }, 0)
+      .to("#ldLine", { scaleX: 0.34, duration: 0.3, ease: "power2.inOut" }, 0.9)
+      .to("#ldLine", { scaleX: 1.06, duration: 0.25, ease: "power3.in" }, 1.2)
+      .fromTo("#ldGlow", { opacity: 0, scale: 0.55 }, { opacity: 0.55, scale: 0.8, duration: HIT, ease: "power2.out" }, 0)
+      .to("#ldLine", { scaleX: 1, duration: 0.33, ease: "power3.out" }, HIT)
+      .fromTo("#ldLine i", { scaleY: 1 }, { scaleY: 2.4, duration: 0.1, ease: "power2.out", yoyo: true, repeat: 1 }, HIT)
+      .fromTo("#ldFlash", { opacity: 0, scaleX: 0.4 }, { opacity: 1, scaleX: 1.2, duration: 0.13, ease: "power3.out" }, HIT)
+      .to("#ldFlash", { opacity: 0, duration: 0.7, ease: "power2.in" }, HIT + 0.13)
+      .to("#ldGlow", { opacity: 1, scale: 1, duration: 1, ease: "power3.out" }, HIT)
+      .to("#ldCarry", { y: 0, duration: 0.9, ease: "power3.out" }, HIT)
+      .to("#ldName span", { yPercent: 0, duration: 0.85, ease: "expo.out", stagger: 0.05 }, HIT)
+      .fromTo("#ldKing", { clipPath: "inset(-20% 106% -20% -5%)", x: -18 }, { clipPath: "inset(-20% -10% -20% -5%)", x: 0, duration: 0.85, ease: "power2.out" }, HIT + 0.45)
+      .fromTo("#ldLockup", { scale: 0.985 }, { scale: 1.06, duration: P - HIT + 0.4, ease: "none" }, HIT)
+      .to(["#ldCarry", "#ldGlow"], { opacity: 0, scale: 1.12, duration: 0.55, ease: "power2.in" }, P - 0.25)
+      .to(".loader-panel.top", { yPercent: -100, duration: 1.2, ease: "expo.inOut" }, P)
+      .to(".loader-panel.bottom", { yPercent: 100, duration: 1.2, ease: "expo.inOut" }, P)
+      .to("#heroMedia", { scale: 1, opacity: 1, duration: 2.4, ease: "expo.out" }, P + 0.2)
+      .to(lines, { yPercent: 0, duration: 1.4, ease: "expo.out", stagger: 0.12 }, P + 0.55)
+      .to(heroBits, { opacity: 1, y: 0, duration: 1.1, ease: "expo.out", stagger: 0.08 }, P + 0.9)
+      .to(strip, { opacity: 1, y: 0, duration: 1.3, ease: "expo.out", stagger: 0.08 }, P + 1.0)
+      .add(() => { const L = $("#loader"); L && L.parentNode.removeChild(L); document.body.classList.remove("is-loading"); lenis && lenis.start(); ScrollTrigger.refresh(); }, P + 1.2);
 
     // ----- subtle mouse parallax on the background -----
     if (fine) {
