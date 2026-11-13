@@ -190,8 +190,10 @@
     all.href = S.coursesUrl; all.textContent = `All courses on ${S.coursesPlatform || "our platform"} \u2197`;
     const li = arr => `<ul>${arr.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
     $("#clsList").innerHTML = (S.classes || []).map((c, i) => {
-      const has = (c.items && c.items.length) || (c.groups && c.groups.length);
-      const body = c.groups ? `<div class="cls-groups">${c.groups.map(g => `<div class="cls-group"><h4>${esc(g.heading)}</h4>${li(g.items)}</div>`).join("")}</div>` : c.items ? li(c.items) : "";
+      const has = (c.items && c.items.length) || (c.groups && c.groups.length) || c.text || c.prize;
+      const body = (c.text ? `<p class="cls-para">${esc(c.text)}</p>` : "")
+        + (c.groups ? `<div class="cls-groups">${c.groups.map(g => `<div class="cls-group"><h4>${esc(g.heading)}</h4>${li(g.items)}</div>`).join("")}</div>` : c.items ? li(c.items) : "")
+        + (c.prize ? `<p class="cls-prize"><b>Prize</b>${esc(c.prize)}</p>` : "");
       return `<li class="cls">
         <${has ? `button type="button" aria-expanded="false"` : "div"} class="cls-row${has ? "" : " static"}">
           <span class="cls-num">Class ${pad2(i + 1)}</span><span class="cls-title">${esc(c.title)}</span>${has ? '<span class="cls-ico"></span>' : "<span></span>"}
