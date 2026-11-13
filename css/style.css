@@ -314,7 +314,15 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .brief-mail:hover { color: var(--gold); }
 .brief-status { font-size: 14px; color: var(--gold-hi); min-height: 1em; margin-top: -8px; }
 .brief-status:empty { display: none; }
-.contact > .socials { margin-top: 34px; }
+.connect { position: relative; margin-top: 46px; display: grid; justify-items: center; gap: 18px; width: 100%; }
+.connect-label { display: flex; align-items: center; gap: 16px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.connect-label::before, .connect-label::after { content: ""; width: 70px; height: 1px; background: var(--line); }
+.connect-icons { display: flex; gap: 22px; color: rgba(244,239,230,.6); }
+.connect-icons a { display: grid; place-items: center; transition: color .3s, transform .4s var(--ease); }
+.connect-icons a:hover { color: var(--gold); transform: translateY(-3px); }
+.connect-icons svg { width: 22px; height: 22px; }
+.connect-icons .txt { font-size: 14px; font-weight: 600; }
+.connect-note { font-size: 13px; color: var(--muted); }
 .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 .socials a { padding: 12px 24px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; letter-spacing: .06em; transition: background .4s, color .4s, border-color .4s; }
 .socials a:hover { background: var(--gold); color: #0a0805; border-color: var(--gold); }

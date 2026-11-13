@@ -114,6 +114,11 @@
       const ic = ICONS[so.label.toLowerCase()];
       return `<a href="${esc(so.url)}" target="_blank" rel="noopener" aria-label="${esc(so.label)}">${ic ? `<svg viewBox="0 0 24 24">${ic}</svg>` : esc(so.label)}</a>`;
     }).join("") + (S.handle ? `<span class="handle">${esc(S.handle)}</span>` : "");
+    $("#connectIcons").innerHTML = S.socials.map(so => {
+      const ic = ICONS[so.label.toLowerCase()];
+      return `<a href="${esc(so.url)}" target="_blank" rel="noopener" aria-label="${esc(so.label)}">${ic ? `<svg viewBox="0 0 24 24">${ic}</svg>` : `<span class="txt">${esc(so.label)}</span>`}</a>`;
+    }).join("");
+    $("#connectNote").textContent = S.responseNote || "";
 
     // background video
     const hv = $("#heroVideo"), snd = $("#soundBtn");
@@ -342,7 +347,7 @@
     if (el.classList.contains("pp-title")) return;
     gsap.from(words(el), { yPercent: 115, rotate: 5, duration: 1.3, ease: "expo.out", stagger: 0.07, scrollTrigger: { trigger: el, start: "top 86%" } });
   });
-  $$(".kicker, .about-text p, .stats, .contact-sub, .brief, .contact > .socials, .work-counter").forEach(el => {
+  $$(".kicker, .about-text p, .stats, .contact-sub, .brief, .connect, .work-counter").forEach(el => {
     if (el.closest(".pp-hero")) return;
     gsap.from(el, { y: 40, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } });
   });
