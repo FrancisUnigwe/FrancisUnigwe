@@ -19,8 +19,9 @@ All text, videos, courses and the process roadmap live in **`js/content.js`**. Y
 
 ## Contact form
 - Project-type buttons come from `projectTypes`.
-- By default, submitting opens the visitor's email app with their brief filled in and addressed to `email`.
-- To receive briefs directly instead, create a free form at a service like Formspree and paste its URL into `formEndpoint`.
+- Briefs are sent to `formEmail` through FormSubmit (`formEndpoint`). The first submission triggers an activation email to that address; click the link once to start receiving briefs.
+- If sending fails, the form falls back to opening the visitor's email app, addressed to `formEmail`.
+- `email` is the public address shown on the site.
 
 ## Pages
 - `index.html`: hero, popular videos, services (client work), about me, courses, contact

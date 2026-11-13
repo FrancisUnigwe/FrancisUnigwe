@@ -202,18 +202,28 @@
       bad.forEach(n => f[n].classList.add("invalid"));
       if (bad.length) { status.textContent = "Please fill in your name, a valid email and a short brief."; f[bad[0]].focus(); return; }
       const data = { type, name: f.name.value.trim(), email: f.email.value.trim(), timeline: f.timeline.value.trim(), brief: f.brief.value.trim() };
+      const to = S.formEmail || S.email;
+      const mailFallback = () => {
+        const body = `Project type: ${data.type}\nName: ${data.name}\nEmail: ${data.email}\nTimeline / budget: ${data.timeline || "-"}\n\n${data.brief}`;
+        location.href = `mailto:${to}?subject=${encodeURIComponent(`New project: ${data.type} (${data.name})`)}&body=${encodeURIComponent(body)}`;
+      };
       if (S.formEndpoint) {
         const btn = $(".brief-btn", form); btn.disabled = true; status.textContent = "Sending…";
         try {
-          const r = await fetch(S.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) });
-          if (!r.ok) throw 0;
-          form.reset(); status.textContent = "Thank you! Your brief is in. I'll get back to you soon.";
-        } catch { status.textContent = `Something went wrong. Please email me at ${S.email}.`; }
+          const r = await fetch(S.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ ...data, _subject: `New project: ${data.type} (${data.name})`, _template: "table", _captcha: "false" }) });
+          const j = await r.json().catch(() => ({}));
+          if (!r.ok || String(j.success) === "false") throw 0;
+          form.reset(); $$(".chip", chipsEl).forEach((x, i) => x.setAttribute("aria-pressed", i === 0));
+          status.textContent = "Thank you! Your brief has been sent. I'll get back to you soon.";
+        } catch {
+          status.textContent = "Couldn't send directly, so I'm opening your email app with your brief filled in…";
+          mailFallback();
+        }
         btn.disabled = false;
       } else {
-        const body = `Project type: ${data.type}\nName: ${data.name}\nEmail: ${data.email}\nTimeline / budget: ${data.timeline || "-"}\n\n${data.brief}`;
-        location.href = `mailto:${S.email}?subject=${encodeURIComponent(`New project: ${data.type} (${data.name})`)}&body=${encodeURIComponent(body)}`;
         status.textContent = "Opening your email app with your brief filled in…";
+        mailFallback();
       }
     });
   }

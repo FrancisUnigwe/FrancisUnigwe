@@ -94,10 +94,12 @@ window.SITE = {
   /* ---------------- CONTACT / SOCIALS ---------------- */
   // Project types shown as buttons in the contact form.
   projectTypes: ["Ads & Commercials", "Movies & Short Films", "Music Videos", "Brand Content", "Creative Direction", "Training & Speaking"],
-  // Optional: a form service URL (e.g. Formspree "https://formspree.io/f/xxxx") to receive briefs directly.
-  // Leave "" and the form opens the visitor's email app with everything filled in, addressed to your email.
-  formEndpoint: "",
-  email: "hello@example.com",
+  // Where contact-form briefs are delivered (via FormSubmit, a free form-to-email service).
+  // The first time someone submits, FormSubmit emails this address an activation link: click it once.
+  formEmail: "kingspetsng@gmail.com",
+  formEndpoint: "https://formsubmit.co/ajax/kingspetsng@gmail.com",
+  // Public email shown on the site (Send a Mail button and next to the form).
+  email: "franchizerich@gmail.com",
   socials: [
     { label: "YouTube",   url: "#" },
     { label: "Instagram", url: "#" },
