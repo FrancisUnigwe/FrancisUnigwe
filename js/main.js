@@ -128,9 +128,12 @@
     } else hv.parentNode.removeChild(hv);
 
     // name under the strip
-    const hn = $("#heroName");
-    hn.innerHTML = `<span class="inner">${[...S.name].map(c => `<span class="ch">${c === " " ? "&nbsp;" : esc(c)}</span>`).join("")}</span>`;
-    fit(hn, $(".inner", hn), () => Math.min(112, innerWidth * 0.075 + 10));
+    const hn = $("#heroName"), nk = $("#nbKing");
+    nk.textContent = firstName;
+    hn.innerHTML = `<span class="inner">${[...lastName].map(c => `<span class="ch">${c === " " ? "&nbsp;" : esc(c)}</span>`).join("")}</span>`;
+    fit(hn, $(".inner", hn), () => innerHeight * 0.42);
+    const kingSize = () => (nk.parentNode.style.fontSize = parseFloat(hn.style.fontSize) * 0.4 + "px");
+    fitters.push(kingSize); kingSize();
 
     // thumbnail strip along the bottom
     $("#heroStrip").innerHTML = S.videos.slice(0, 5).map((v, i) => `<div class="strip-card" data-i="${i}">${media(v, i)}<small>${esc(v.category)}</small></div>`).join("");
@@ -374,8 +377,9 @@
 
     // ----- name: letters rise as you scroll, lift + glow under the mouse -----
     const nch = $$("#heroName .ch");
-    gsap.fromTo(nch, { yPercent: 105, opacity: 0 }, { yPercent: 0, opacity: 1, ease: "none", stagger: 0.06,
-      scrollTrigger: { trigger: "#namebar", start: "top 98%", end: "top 40%", scrub: 1 } });
+    const nbST = { trigger: "#namebar", start: "top 98%", end: "top 35%", scrub: 1 };
+    gsap.fromTo(nch, { yPercent: 105 }, { yPercent: 0, ease: "none", stagger: 0.06, scrollTrigger: nbST });
+    gsap.fromTo("#nbKing", { yPercent: 110 }, { yPercent: 0, ease: "none", scrollTrigger: nbST });
     if (fine) {
       const ny = nch.map(c => gsap.quickTo(c, "y", { duration: 0.6, ease: "power3" }));
       const bar = $("#namebar");
@@ -383,8 +387,8 @@
         const fs = parseFloat($("#heroName").style.fontSize) || 120;
         nch.forEach((c, i) => {
           const r = c.getBoundingClientRect(), d = Math.abs(e.clientX - (r.left + r.width / 2));
-          const k = Math.max(0, 1 - d / (fs * 1.1));
-          ny[i](-k * fs * 0.12); c.classList.toggle("lit", k > 0.5);
+          const k = Math.max(0, 1 - d / (fs * 0.9));
+          ny[i](-k * fs * 0.09); c.classList.toggle("lit", k > 0.55);
         });
       });
       bar.addEventListener("mouseleave", () => nch.forEach((c, i) => { ny[i](0); c.classList.remove("lit"); }));
