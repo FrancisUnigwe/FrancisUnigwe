@@ -104,8 +104,9 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .btn-sm { padding: 12px 22px; font-size: 13px; }
 
 /* ---------- hero ---------- */
-.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: 120px var(--pad) 190px; overflow: hidden; isolation: isolate; }
-.hero-media { position: absolute; inset: 0; z-index: -2; will-change: transform; }
+.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: 120px var(--pad) 190px; isolation: isolate; }
+.hero-media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.hero-media > * { will-change: transform; }
 .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero-placeholder { position: absolute; inset: 0; overflow: hidden;
   background: radial-gradient(60% 70% at 70% 45%, rgba(217,180,108,.28), transparent 70%), radial-gradient(40% 50% at 85% 80%, rgba(148,113,58,.35), transparent 70%), #0b0a08; }
@@ -155,6 +156,12 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .strip-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.65)); }
 .strip-card small { position: absolute; left: 12px; top: 10px; z-index: 2; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-hi); }
 .strip-card .ph b { font-size: 54px; }
+
+/* name under the strip */
+.namebar { position: relative; padding: 120px var(--pad) 0; }
+.nb-name { width: min(1240px, 100%); margin: 0 auto; white-space: nowrap; overflow: hidden; text-align: center; font-family: var(--sans); font-weight: 300; text-transform: uppercase; letter-spacing: .04em; line-height: 1.1; padding: .08em 0 .04em; color: var(--ink); }
+.nb-name .ch { display: inline-block; will-change: transform; transition: color .5s; }
+.nb-name .ch.lit { color: var(--gold-hi); }
 
 /* ---------- statement ---------- */
 .statement { padding: clamp(110px, 18vw, 240px) var(--pad); max-width: 1500px; }
@@ -356,8 +363,10 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 @media (max-width: 900px) {
   .nav-links, .nav-cta { display: none; }
   .hero { padding-bottom: 150px; justify-content: flex-end; }
-  .hero-strip { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 58vw; overflow-x: auto; scrollbar-width: none; left: 0; translate: none; width: 100%; padding: 0 var(--pad); bottom: -40px; }
-  .hero-strip::-webkit-scrollbar { display: none; }
+  .hero-strip { grid-template-columns: repeat(3, 1fr); gap: 12px; bottom: -40px; }
+  .strip-card:nth-child(n+4) { display: none; }
+  .strip-card .ph b { font-size: 34px; }
+  .namebar { padding-top: 80px; }
   .hero-sound { top: 84px; padding: 8px 14px; font-size: 11px; }
   .menu-btn { display: inline-flex; }
   .work-track { flex-direction: column; width: auto; gap: 56px; }
@@ -381,6 +390,9 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
   .footer-row { flex-direction: column; }
   .photo-tag { left: 10px; }
   .hero-cta .btn { flex: 1; padding: 15px 16px; white-space: nowrap; }
+  .hero-strip { gap: 8px; }
+  .strip-card { border-radius: 8px; }
+  .strip-card small { left: 8px; top: 7px; font-size: 8px; letter-spacing: .1em; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
