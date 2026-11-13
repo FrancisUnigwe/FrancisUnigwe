@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Where are we in our process?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="process-page">
+  <div class="progress" id="progress"></div>
+  <div class="cursor" id="cursor"><span id="cursorText"></span></div>
+  <div class="grain"></div>
+
+  <header class="nav scrolled" id="nav">
+    <a href="index.html" class="logo" data-name-short></a>
+    <a href="index.html#courses" class="btn btn-sm btn-ghost magnetic">← Back to courses</a>
+  </header>
+
+  <main class="section process">
+    <div class="hero-bg"><div class="blob b1"></div><div class="blob b2"></div></div>
+    <span class="kicker reveal">Course roadmap</span>
+    <h1 class="reveal">Where are we in <em>our process?</em></h1>
+    <div class="overall reveal">
+      <div class="overall-top"><span>Overall progress</span><b id="overallPct">0%</b></div>
+      <div class="overall-bar"><i id="overallBar"></i></div>
+    </div>
+    <ol class="timeline" id="timeline"></ol>
+  </main>
+
+  <footer class="footer"><span>© <span id="year"></span> <span data-name></span></span><a href="index.html">Home</a></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Francis Unigwe — Creator & Educator</title>
+  <meta name="description" content="Portfolio of Francis Unigwe: popular videos, about, and courses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="loader" id="loader"><span class="loader-name" data-name></span><div class="loader-bar"><i></i></div></div>
+  <div class="progress" id="progress"></div>
+  <div class="cursor" id="cursor"><span id="cursorText"></span></div>
+  <div class="grain"></div>
+
+  <header class="nav" id="nav">
+    <a href="#top" class="logo" data-name-short></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#courses">Courses</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-sm magnetic" data-process-link>Our process</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <video id="heroVideo" muted loop playsinline autoplay></video>
+        <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+      </div>
+      <div class="hero-inner">
+        <p class="eyebrow reveal" data-tagline></p>
+        <h1 class="hero-title" id="heroTitle"></h1>
+        <p class="hero-sub reveal" data-hero-sub></p>
+        <div class="hero-cta reveal">
+          <a href="#work" class="btn magnetic">Watch my work</a>
+          <a href="#courses" class="btn btn-ghost magnetic">Explore courses</a>
+        </div>
+      </div>
+      <a href="#work" class="scroll-hint"><span></span>Scroll</a>
+    </section>
+
+    <div class="marquee"><div class="marquee-track" id="marquee"></div></div>
+
+    <!-- VIDEOS -->
+    <section class="section" id="work">
+      <div class="section-head">
+        <span class="kicker reveal">01 — Popular videos</span>
+        <h2 class="reveal">Work that <em>travels.</em></h2>
+      </div>
+      <div class="filters reveal" id="filters"></div>
+      <div class="video-grid" id="videoGrid"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about" id="about">
+      <div class="about-photo reveal" id="tilt">
+        <div class="photo-frame">
+          <img id="aboutPhoto" alt="Portrait" />
+          <div class="photo-fallback">Your photo<br /><small>assets/images/me.jpg</small></div>
+        </div>
+        <div class="photo-ring"></div>
+      </div>
+      <div class="about-text">
+        <span class="kicker reveal">02 — About me</span>
+        <h2 class="reveal" id="aboutHeading"></h2>
+        <div id="aboutBody"></div>
+        <div class="stats" id="stats"></div>
+      </div>
+    </section>
+
+    <!-- COURSES -->
+    <section class="section" id="courses">
+      <div class="section-head">
+        <span class="kicker reveal">03 — Courses</span>
+        <h2 class="reveal">Learn how I <em>do it.</em></h2>
+      </div>
+      <div class="course-grid" id="courseGrid"></div>
+      <a class="process-cta reveal magnetic" data-process-link>
+        <span class="pc-label">Already enrolled?</span>
+        <span class="pc-title">Where are we in our process? <b>→</b></span>
+      </a>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section contact" id="contact">
+      <span class="kicker reveal">04 — Contact</span>
+      <h2 class="big reveal">Let's make<br />something <em>big.</em></h2>
+      <a class="email reveal magnetic" id="emailLink"></a>
+      <div class="socials reveal" id="socials"></div>
+    </section>
+  </main>
+
+  <footer class="footer"><span>© <span id="year"></span> <span data-name></span></span><a href="#top">Back to top ↑</a></footer>
+
+  <!-- VIDEO MODAL -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
