@@ -164,8 +164,6 @@
         <span class="svc-desc">${esc(v.desc)}</span><span class="svc-arrow">→</span></a></li>`).join("");
     $("#svcPreviewInner").innerHTML = SV.map((v, i) => `<div>${media(v, i)}<small>${esc(v.title)}</small></div>`).join("");
 
-    const mItem = `<span>${esc(S.name)} <i class="mq-sep">✦</i></span>`;
-    $(".marquee-track").innerHTML = mItem.repeat(8);
 
     const A = S.about;
     const img = $("#aboutPhoto");
@@ -462,12 +460,6 @@
       $$(".vcard").forEach(card => gsap.from(card, { y: 60, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: card, start: "top 90%" } }));
     });
 
-    // ----- marquee driven by scroll velocity -----
-    const mt = gsap.to(".marquee-track", { xPercent: -50, repeat: -1, duration: 40, ease: "none" });
-    mt.totalTime(40 * 500);
-    let dir = 1, boost = 0;
-    if (lenis) lenis.on("scroll", e => { if (e.direction) dir = e.direction; boost = Math.min(Math.abs(e.velocity), 60) / 5; });
-    gsap.ticker.add(() => { boost *= 0.93; mt.timeScale(dir * (1 + boost)); });
 
     // ----- about photo reveal -----
     gsap.fromTo("#photoMask", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut", scrollTrigger: { trigger: "#photoMask", start: "top 80%" } });
