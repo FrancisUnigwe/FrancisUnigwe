@@ -5,7 +5,7 @@
 
 window.SITE = {
   name: "King Francis",
-  heroSub: "Videos that stop the scroll, and courses that show you exactly how they're made.",
+  heroSub: "AI films that stop the scroll, and courses that show you exactly how they're made.",
 
   // Optional looping background video for the hero (muted). Leave "" for the animated gold dust only.
   heroVideo: "", // e.g. "assets/videos/showreel.mp4"
@@ -14,7 +14,7 @@ window.SITE = {
 
   // Big sentence that lights up word by word as you scroll. Wrap words in *stars* to make them gold.
   statement:
-    "Every frame is a *decision.* Every story is built to be *felt,* *shared* and *remembered* long after the screen goes dark.",
+    "AI is the camera. The *story* is still mine. Every frame is built to be *felt,* *shared* and *remembered* long after the screen goes dark.",
 
   /* ---------------- POPULAR VIDEOS ----------------
      Each video can be EITHER:
@@ -23,11 +23,11 @@ window.SITE = {
      thumb:   optional image; YouTube thumbnails are pulled automatically.
      preview: optional short muted mp4 that plays on hover.            */
   videos: [
-    { title: "Video Title One",   category: "Viral",       views: "2.4M", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Two",   category: "Documentary", views: "1.1M", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title One",   category: "AI Film",     views: "2.4M", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title Two",   category: "Commercial",  views: "1.1M", youtube: "", file: "", thumb: "", preview: "" },
     { title: "Video Title Three", category: "Short Film",  views: "870K", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Four",  category: "Viral",       views: "640K", youtube: "", file: "", thumb: "", preview: "" },
-    { title: "Video Title Five",  category: "Documentary", views: "520K", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title Four",  category: "AI Film",     views: "640K", youtube: "", file: "", thumb: "", preview: "" },
+    { title: "Video Title Five",  category: "Commercial",  views: "520K", youtube: "", file: "", thumb: "", preview: "" },
     { title: "Video Title Six",   category: "Short Film",  views: "410K", youtube: "", file: "", thumb: "", preview: "" },
   ],
 
@@ -36,7 +36,7 @@ window.SITE = {
     photo: "assets/images/me.jpg", // put your photo here (portrait works best)
     heading: "The man behind the frame.",
     paragraphs: [
-      "Replace this with your story: where you started, what you create, and why people keep coming back to watch.",
+      "Replace this with your story: how you got into AI filmmaking, what you create, and why people keep coming back to watch.",
       "Add a second paragraph about your mission, your audience, and what makes your approach different.",
     ],
     stats: [
@@ -63,7 +63,7 @@ window.SITE = {
   process: [
     { step: "Discovery",   status: "done",     date: "Phase 01", desc: "We learn your goals and where you're starting from." },
     { step: "Foundations", status: "done",     date: "Phase 02", desc: "Core skills: storytelling, hooks, and structure." },
-    { step: "Production",  status: "current",  date: "Phase 03", desc: "Hands-on: shooting, editing, and creating with AI tools." },
+    { step: "Production",  status: "current",  date: "Phase 03", desc: "Hands-on: generating, directing and editing films with AI tools." },
     { step: "Launch",      status: "upcoming", date: "Phase 04", desc: "Publish, grow, and analyse what works." },
     { step: "Mastery",     status: "upcoming", date: "Phase 05", desc: "Scale your channel and build a lasting brand." },
   ],
