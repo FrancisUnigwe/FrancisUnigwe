@@ -34,6 +34,8 @@ window.SITE = {
       file: "assets/videos/ugc-brand-story.mp4", thumb: "assets/images/ugc-brand-story.jpg", preview: "assets/videos/ugc-brand-story-preview.mp4" },
     { title: "Everything Chi", category: "Ad", views: "", youtube: "",
       file: "assets/videos/everything-chi.mp4", thumb: "assets/images/everything-chi.jpg", preview: "assets/videos/everything-chi-preview.mp4" },
+    { title: "Car Race", category: "Ad", views: "", youtube: "",
+      file: "assets/videos/car-race.mp4", thumb: "assets/images/car-race.jpg", preview: "assets/videos/car-race-preview.mp4" },
   ],
 
   /* ---------------- SERVICES (client work) ----------------
