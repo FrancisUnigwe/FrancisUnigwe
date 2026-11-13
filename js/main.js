@@ -192,7 +192,8 @@
 
     // ----- classes -----
     $("#clsBannerText").innerHTML = (S.classBanner || []).map(l => `<span data-text="${esc(l)}">${esc(l)}</span>`).join("");
-    $("#clsHeading").textContent = S.classHeading || "";
+    const hl = S.classHeadingLines || [S.classHeading || ""];
+    $("#clsHeading").innerHTML = hl.map((l, i) => `<span class="${i === hl.length - 1 && hl.length > 1 ? "glow" : ""}">${esc(l)}</span>`).join("");
     $("#clsIntro").textContent = S.classIntro || "";
     $("#clsRegister").href = S.coursesUrl;
     const all = $("#allCourses");
@@ -204,8 +205,10 @@
         + (c.groups ? `<div class="cls-groups">${c.groups.map(g => `<div class="cls-group"><h4>${esc(g.heading)}</h4>${li(g.items)}</div>`).join("")}</div>` : c.items ? li(c.items) : "")
         + (c.prize ? `<p class="cls-prize"><b>Prize</b>${esc(c.prize)}</p>` : "");
       return `<li class="cls">
-        <${has ? `button type="button" aria-expanded="false"` : "div"} class="cls-row${has ? "" : " static"}">
-          <span class="cls-num">Class ${pad2(i + 1)}</span><span class="cls-title">${esc(c.title)}</span>${has ? '<span class="cls-ico"></span>' : "<span></span>"}
+        <${has ? `button type="button" aria-expanded="false"` : "div"} class="cls-row">
+          <span class="cls-num">${pad2(i + 1)}</span><span class="cls-title">${esc(c.title)}</span>
+          <span class="cls-line"><i></i></span><span class="cls-dot"></span>
+          <span class="cls-sum">${esc(c.summary || "")}${has ? '<span class="cls-more"></span>' : ""}</span>
         </${has ? "button" : "div"}>
         ${has ? `<div class="cls-body"><div><div class="cls-inner">${body}</div></div></div>` : ""}
       </li>`;
@@ -553,8 +556,16 @@
         }, onComplete: () => (sp.textContent = target) });
       });
     } });
-    gsap.from(".cls", { y: 30, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.06, scrollTrigger: { trigger: "#clsList", start: "top 85%" } });
-    gsap.from([".cls-heading", ".cls-text", ".cls-register", ".cls-all"], { y: 30, opacity: 0, duration: 1.1, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".cls-intro", start: "top 85%" } });
+    $$(".cls").forEach(c => {
+      const tl = gsap.timeline({ scrollTrigger: { trigger: c, start: "top 88%" } });
+      tl.from($(".cls-num", c), { y: 20, opacity: 0, duration: 0.8, ease: "expo.out" })
+        .from($(".cls-title", c), { y: 20, opacity: 0, duration: 0.8, ease: "expo.out" }, 0.05)
+        .from($(".cls-line", c), { scaleX: 0, duration: 1.2, ease: "expo.inOut" }, 0.1)
+        .from($(".cls-dot", c), { scale: 0, duration: 0.6, ease: "back.out(3)" }, 0.9)
+        .from($(".cls-sum", c), { x: 30, opacity: 0, duration: 0.9, ease: "expo.out" }, 0.8);
+    });
+    gsap.from(".cls-heading span", { yPercent: 40, opacity: 0, duration: 1.3, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".cls-heading", start: "top 85%" } });
+    gsap.from([".cls-text", ".cls-cta"], { y: 30, opacity: 0, duration: 1.1, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".cls-sub", start: "top 90%" } });
 
   }
 

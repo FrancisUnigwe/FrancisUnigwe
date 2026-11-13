@@ -74,14 +74,17 @@ window.SITE = {
   coursesPlatform: "Nestuge",
 
   // The class curriculum shown in the Courses section.
+  // "summary" is the short line shown on the right of each row.
   // A class with "items" shows one list; a class with "groups" shows headed columns.
   // A class can also have "text" (a paragraph) and "prize" (shown with a gold PRIZE tag).
   // A class with none of these just shows its title (no expand button) until you add details.
   classBanner: ["Eight classes.", "Zero to hero."],
   classHeading: "From First Prompt to Final Cut",
+  // Big heading: first line white, second line glowing gold.
+  classHeadingLines: ["From first prompt", "to final cut"],
   classIntro: "Eight live classes. Each one ends with a project. Submit it before the next class and it becomes your portfolio.",
   classes: [
-    { title: "Introduction to AI video creation", groups: [
+    { title: "Introduction to AI video creation", summary: "AI platforms vs models, prompting basics, consistent 3D characters and your first 30-second video.", groups: [
       { heading: "Overview", items: [
         "The difference between AI platforms and AI models",
         "Understanding image, video and audio models",
@@ -106,7 +109,7 @@ window.SITE = {
         "Post-production in CapCut",
       ] },
     ] },
-    { title: "Your first animated advert", items: [
+    { title: "Your first animated advert", summary: "Turn research into an advert script, build your assets and animate it with Seedance 2.5.", items: [
       "Understanding the limitations of AI for video creation",
       "Understanding Claude skills and how to use them",
       "Prompting with your voice",
@@ -115,7 +118,7 @@ window.SITE = {
       "Animating with Seedance 2.5",
       "Post-production",
     ] },
-    { title: "Your first animated music video", items: [
+    { title: "Your first animated music video", summary: "Script, characters, voices and shot prompts, animated in Magnific with consistent scenes.", items: [
       "Writing your script with the help of Claude",
       "Building your characters, locations and voices",
       "Creating prompts for each shot",
@@ -123,14 +126,14 @@ window.SITE = {
       "Post-production in CapCut / DaVinci Resolve",
       "How to get noticed and get clients",
     ] },
-    { title: "Your first realistic dialogue video", items: [
+    { title: "Your first realistic dialogue video", summary: "Write, voice and produce a realistic dialogue film with Seed Audio, ElevenLabs and Higgsfield.", items: [
       "Developing your idea and writing your script",
       "Building characters, locations and character voices with Seed Audio and ElevenLabs",
       "Creating prompts for each shot",
       "Producing your film in Higgsfield / Magnific with consistent characters and scenes",
       "Post-production in CapCut / DaVinci Resolve",
     ] },
-    { title: "Post-production in CapCut", items: [
+    { title: "Post-production in CapCut", summary: "Edit your AI footage, add sound design and music, and start building your portfolio.", items: [
       "How to write a good story with your imagination and Claude",
       "Installing CapCut for Windows",
       "Editing your AI content in CapCut",
@@ -138,7 +141,7 @@ window.SITE = {
       "Where to find copyright-free sound effects and background music",
       "Creating your portfolio",
     ] },
-    { title: "Creating AI UGC videos", items: [
+    { title: "Creating AI UGC videos", summary: "Scripts, AI avatars and consistent-voice clips for UGC-style brand videos.", items: [
       "Gathering data for your UGC videos",
       "Creating your script",
       "Creating your characters, locations and props",
@@ -146,14 +149,14 @@ window.SITE = {
       "Creating video clips with consistent voices",
       "Post-production",
     ] },
-    { title: "Monetization", items: [
+    { title: "Monetization", summary: "Choose your path, follow a 90-day roadmap and find your first paying clients.", items: [
       "Choosing your monetization path",
       "Your roadmap to monetizing in 90 days",
       "Platforms to find clients",
       "Building your portfolio, and where to host it",
       "Q&A",
     ] },
-    { title: "Student project display",
+    { title: "Student project display", summary: "Screen the work you built across the programme. Best projects win 240,000 Magnific credits.",
       text: "Every student screens the work they built across the programme: the first pieces of a real portfolio.",
       prize: "Best projects win 240,000 Magnific credits." },
   ],
