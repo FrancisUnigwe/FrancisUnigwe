@@ -78,7 +78,7 @@ window.SITE = {
   // A class can also have "text" (a paragraph) and "prize" (shown with a gold PRIZE tag).
   // A class with none of these just shows its title (no expand button) until you add details.
   classBanner: ["Eight classes.", "Zero to hero."],
-  classHeading: "From \u201cWhat If\u201d to Final Frame",
+  classHeading: "From First Prompt to Final Cut",
   classIntro: "Eight live classes. Each one ends with a project. Submit it before the next class and it becomes your portfolio.",
   classes: [
     { title: "Introduction to AI video creation", groups: [
