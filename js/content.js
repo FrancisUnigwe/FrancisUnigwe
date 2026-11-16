@@ -28,13 +28,13 @@ window.SITE = {
      thumb:   optional image; YouTube thumbnails are pulled automatically.
      preview: optional short muted mp4 that plays on hover.            */
   videos: [
-    { title: "New Music", category: "Music Video", views: "", youtube: "",
+    { title: "Afterglow", category: "Music Video", views: "", youtube: "",
       file: "assets/videos/new-music.mp4", thumb: "assets/images/new-music.jpg", preview: "assets/videos/new-music-preview.mp4" },
-    { title: "UGC Brand Story", category: "Ad", views: "", youtube: "",
+    { title: "Morning Ritual", category: "Ad", views: "", youtube: "",
       file: "assets/videos/ugc-brand-story.mp4", thumb: "assets/images/ugc-brand-story.jpg", preview: "assets/videos/ugc-brand-story-preview.mp4" },
-    { title: "Everything Chi", category: "Ad", views: "", youtube: "",
+    { title: "Signature Scent", category: "Ad", views: "", youtube: "",
       file: "assets/videos/everything-chi.mp4", thumb: "assets/images/everything-chi.jpg", preview: "assets/videos/everything-chi-preview.mp4" },
-    { title: "Car Race", category: "Ad", views: "", youtube: "",
+    { title: "Midnight Run", category: "Ad", views: "", youtube: "",
       file: "assets/videos/car-race.mp4", thumb: "assets/images/car-race.jpg", preview: "assets/videos/car-race-preview.mp4" },
   ],
 
