@@ -158,19 +158,89 @@
       return `<span class="sw${g ? " g" : ""}">${esc(w.replace(/\*/g, ""))}</span>`;
     }).join(" ");
 
-    $("#workTrack").innerHTML = S.videos.map((v, i) => `
-      <article class="vcard" data-i="${i}">
-        <div class="vframe">${media(v, i)}${v.preview ? `<video src="${esc(v.preview)}" muted loop playsinline preload="none"></video>` : ""}<span class="play"></span></div>
-        <div class="vinfo"><h3><span class="vnum">${pad2(i + 1)}</span>${esc(v.title)}</h3>
-          <div class="vtags"><span>${esc(v.category)}</span>${v.views ? `<span class="views">${esc(v.views)} views</span>` : ""}</div></div>
-      </article>`).join("");
-    $("#workTotal").textContent = pad2(S.videos.length);
-    $("#workTrack").addEventListener("click", e => { const c = e.target.closest(".vcard"); if (c) openModal(S.videos[c.dataset.i]); });
-    $$(".vcard").forEach(card => {
-      const vid = $("video", card); if (!vid) return;
-      card.addEventListener("mouseenter", () => vid.play().catch(() => {}));
-      card.addEventListener("mouseleave", () => { vid.pause(); vid.currentTime = 0; });
+    // ----- VHS tape shelf (Popular videos) -----
+    const VIDS = S.videos, NV = VIDS.length, DECOR = 6;
+    const SPINES = [
+      { bg: "#14120f", ink: "#d9b46c" }, { bg: "#c9a35f", ink: "#0a0805" }, { bg: "#ece3d1", ink: "#14120f" },
+      { bg: "#2b1e12", ink: "#f6e2ae" }, { bg: "#0b0b0b", ink: "#f4efe6" }, { bg: "#6e5124", ink: "#f6e2ae" },
+    ];
+    const tapes = [];
+    for (let k = -DECOR; k < NV + DECOR; k++) tapes.push(k);
+    const coverOf = (v, i) => {
+      const thumb = v.thumb || (v.youtube ? `https://i.ytimg.com/vi/${encodeURIComponent(v.youtube)}/hqdefault.jpg` : "");
+      return thumb ? `<img class="cover-art" src="${esc(thumb)}" alt="" loading="lazy">` : `<div class="cover-art ph"></div>`;
+    };
+    $("#shelfStage").innerHTML = tapes.map((k, j) => {
+      const real = k >= 0 && k < NV, v = real ? VIDS[k] : null, c = SPINES[(j * 5 + 3) % SPINES.length];
+      const spine = side => `<div class="sp ${side}"><span class="sp-num">${real ? pad2(k + 1) : "KF"}</span><span class="sp-title">${real ? esc(v.title) : "King Francis"}</span><span class="sp-vhs">VHS</span></div>`;
+      return `<div class="tape${real ? "" : " decor"}" data-k="${k}" style="--sp-bg:${c.bg};--sp-ink:${c.ink}">
+        <div class="front">${real ? `${coverOf(v, k)}${v.preview ? `<video class="cv-prev" src="${esc(v.preview)}" muted loop playsinline preload="none"></video>` : ""}
+          <span class="cv-top">A King Francis film</span><span class="cv-title">${esc(v.title)}</span>
+          <span class="cv-foot"><span>${esc(v.category)}</span><b>VHS</b></span>` : `<div class="cover-art ph"></div>`}</div>
+        <div class="back"></div>${spine("l")}${spine("r")}
+      </div>`;
+    }).join("");
+    const tapeEls = $$("#shelfStage .tape");
+    const shelf = $("#shelf");
+    let TW = 260, TD = 52, TH = 370;
+    const sizeShelf = () => {
+      const w = innerWidth;
+      TW = Math.round(w > 900 ? Math.min(290, Math.max(200, w * 0.17)) : Math.min(230, w * 0.52));
+      TD = Math.round(TW * 0.2); TH = Math.round(TW * 1.42);
+      shelf.style.setProperty("--W", TW + "px"); shelf.style.setProperty("--D", TD + "px"); shelf.style.setProperty("--H", TH + "px");
+    };
+    const SHELF = { pos: 0, active: -1 };
+    const renderShelf = () => {
+      const pos = SHELF.pos, gap = Math.max(5, TD * 0.12), near = TW / 2 + TD / 2 + gap * 2.5, step = TD + gap;
+      tapeEls.forEach((el, j) => {
+        const k = tapes[j], d = k - pos, a = Math.abs(d), sg = d < 0 ? -1 : 1;
+        if (a > 14) { el.style.visibility = "hidden"; return; }
+        el.style.visibility = "";
+        const t = Math.min(a, 1), far = Math.max(a - 1, 0);
+        const x = sg * (t * near + far * step);
+        const z = (1 - t) * TW * 0.22 - Math.pow(far, 1.15) * TD * 0.32;
+        // spines turn to face the camera (perspective 1700 px), so the row reads like a shelf seen from the front
+        const face = Math.atan2(Math.abs(x), 1700 - z) * 180 / Math.PI;
+        const rot = sg * (t * 90 - t * face * 0.9);
+        const y = -(1 - t) * 6;
+        el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateY(${rot.toFixed(2)}deg)`;
+        el.style.zIndex = String(100 - Math.round(a * 4));
+        el.style.setProperty("--dim", a > 2.5 ? Math.min(0.45, (a - 2.5) * 0.05).toFixed(2) : "0"); // a CSS filter here would flatten the 3D box
+      });
+      const act = Math.max(0, Math.min(NV - 1, Math.round(pos)));
+      if (act !== SHELF.active) {
+        SHELF.active = act;
+        tapeEls.forEach((el, j) => el.classList.toggle("is-active", tapes[j] === act));
+        const v = VIDS[act];
+        $("#shelfTitle").textContent = v ? v.title : "";
+        $("#shelfMeta").textContent = v ? `${v.category}${v.views ? " \u00b7 " + v.views + " views" : ""} \u00b7 ${pad2(act + 1)} / ${pad2(NV)}` : "";
+        $("#workNow").textContent = pad2(act + 1);
+        $("#shelfPrev").disabled = act <= 0; $("#shelfNext").disabled = act >= NV - 1;
+      }
+    };
+    $("#workTotal").textContent = pad2(NV);
+    sizeShelf(); renderShelf();
+    addEventListener("resize", () => { sizeShelf(); renderShelf(); });
+    // default navigation (no scroll pin): glide to a tape; the desktop scroll pin replaces it
+    SHELF.goTo = i => { i = Math.max(0, Math.min(NV - 1, i)); if (window.gsap && !reduce) gsap.to(SHELF, { pos: i, duration: 0.9, ease: "expo.out", onUpdate: renderShelf }); else { SHELF.pos = i; renderShelf(); } };
+    $("#shelfPrev").addEventListener("click", () => SHELF.goTo(SHELF.active - 1));
+    $("#shelfNext").addEventListener("click", () => SHELF.goTo(SHELF.active + 1));
+    shelf.addEventListener("click", e => {
+      const el = e.target.closest(".tape"); if (!el || el.classList.contains("decor")) return;
+      const k = +el.dataset.k;
+      if (k === SHELF.active && e.target.closest(".front")) openModal(VIDS[k]); else SHELF.goTo(k);
     });
+    shelf.addEventListener("mouseover", e => { const f = e.target.closest(".tape.is-active .front"); const pv = f && $(".cv-prev", f); if (pv) pv.play().catch(() => {}); });
+    shelf.addEventListener("mouseout", e => { const f = e.target.closest(".tape.is-active .front"); const pv = f && $(".cv-prev", f); if (pv && !f.contains(e.relatedTarget)) { pv.pause(); pv.currentTime = 0; } });
+    let sx = null;
+    shelf.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
+    shelf.addEventListener("touchend", e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 40) SHELF.goTo(SHELF.active + (dx < 0 ? 1 : -1)); });
+    addEventListener("keydown", e => {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      const r = shelf.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+      SHELF.goTo(SHELF.active + (e.key === "ArrowRight" ? 1 : -1));
+    });
+    window.__SHELF = SHELF; window.__renderShelf = renderShelf;
 
     // services
     const SV = S.services || [];
@@ -460,8 +530,9 @@
     const rx = gsap.quickTo(ring, "x", { duration: 0.5, ease: "power3" }), ry = gsap.quickTo(ring, "y", { duration: 0.5, ease: "power3" });
     addEventListener("mousemove", e => { dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY); });
     document.addEventListener("mouseover", e => {
-      const play = e.target.closest(".vcard, .strip-card"), link = e.target.closest("a, button");
-      ring.classList.toggle("label", !!play); txt.textContent = play ? "Play" : "";
+      const open = e.target.closest(".tape.is-active .front");
+      const play = open || e.target.closest(".vcard, .strip-card"), link = e.target.closest("a, button");
+      ring.classList.toggle("label", !!play); txt.textContent = open ? "Open" : play ? "Play" : "";
       ring.classList.toggle("hover", !play && !!link);
       gsap.to(dot, { scale: play || link ? 0 : 1, duration: 0.3 });
     });
@@ -547,31 +618,26 @@
       lenis && lenis.on("scroll", () => pv.classList.remove("on"));
     }
 
-    // ----- horizontal video reel (desktop) -----
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 901px)", () => {
-      const track = $("#workTrack"), n = S.videos.length;
-      const dist = () => Math.max(0, track.scrollWidth - innerWidth);
-      const tween = gsap.to(track, {
-        x: () => -dist(), ease: "none",
-        scrollTrigger: {
-          trigger: "#work", start: "top top", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true,
-          onUpdate: self => {
-            gsap.set("#workBar", { scaleX: self.progress });
-            $("#workNow").textContent = pad2(Math.min(n, Math.floor(self.progress * n) + 1));
-          },
-        },
+    // ----- tape shelf: scroll drives the shelf on desktop (pinned), arrows/swipe everywhere -----
+    const SH = window.__SHELF, renderSh = window.__renderShelf, nSh = S.videos.length;
+    gsap.from("#shelfStage", { opacity: 0, y: 70, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: "#shelf", start: "top 85%" } }); // the stage, never the tapes: renderShelf owns their transforms
+    const mmSh = gsap.matchMedia();
+    mmSh.add("(min-width: 901px)", () => {
+      if (nSh < 2) return;
+      const per = () => innerHeight * 0.55;
+      const st = ScrollTrigger.create({
+        trigger: "#work", start: "top top", end: () => "+=" + per() * (nSh - 1), pin: true, invalidateOnRefresh: true,
+        snap: { snapTo: 1 / (nSh - 1), duration: { min: 0.25, max: 0.7 }, delay: 0.08, ease: "power2.inOut" },
+        onUpdate: self => { gsap.to(SH, { pos: self.progress * (nSh - 1), duration: 0.45, ease: "power3.out", overwrite: true, onUpdate: renderSh }); },
       });
-      $$(".vcard").forEach(card => {
-        const m = $(".media", card);
-        gsap.fromTo(m, { xPercent: -6 }, { xPercent: 6, ease: "none", scrollTrigger: { trigger: card, containerAnimation: tween, start: "left right", end: "right left", scrub: true } });
-        gsap.from($(".vinfo", card), { y: 30, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: card, containerAnimation: tween, start: "left 85%" } });
-      });
+      const prevGo = SH.goTo;
+      SH.goTo = i => {
+        i = Math.max(0, Math.min(nSh - 1, i));
+        const y = st.start + (st.end - st.start) * (i / (nSh - 1));
+        if (lenis) lenis.scrollTo(y, { duration: 1.1 }); else scrollTo({ top: y, behavior: "smooth" });
+      };
+      return () => { SH.goTo = prevGo; };
     });
-    mm.add("(max-width: 900px)", () => {
-      $$(".vcard").forEach(card => gsap.from(card, { y: 60, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: card, start: "top 90%" } }));
-    });
-
 
     // ----- about photo reveal -----
     gsap.fromTo("#photoMask", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut", scrollTrigger: { trigger: "#photoMask", start: "top 80%" } });

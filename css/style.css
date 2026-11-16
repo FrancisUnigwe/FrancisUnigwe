@@ -204,6 +204,44 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .work-progress { margin: 60px var(--pad) 0; height: 1px; background: var(--line); }
 .work-progress i { display: block; height: 100%; width: 100%; background: var(--gold); transform-origin: left; transform: scaleX(0); }
 
+/* ---------- VHS tape shelf ---------- */
+.shelf { position: relative; height: calc(var(--H, 400px) + 90px); margin-top: 10px; perspective: 1700px; perspective-origin: 50% 42%; touch-action: pan-y; user-select: none; }
+.shelf-glow { position: absolute; left: 50%; top: 52%; width: min(1300px, 120vw); height: 120%; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(217,180,108,.16), rgba(217,180,108,.05) 55%, transparent); pointer-events: none; }
+.shelf-floor { position: absolute; left: 50%; bottom: 18px; width: min(1100px, 100vw); height: 60px; translate: -50% 0; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.85), transparent); filter: blur(6px); pointer-events: none; }
+.shelf-stage { position: absolute; inset: 0; transform-style: preserve-3d; }
+.tape { position: absolute; left: 50%; top: 46%; width: var(--W); height: var(--H); margin: calc(var(--H) / -2) 0 0 calc(var(--W) / -2); transform-style: preserve-3d; will-change: transform; }
+.tape > div { position: absolute; top: 0; height: 100%; backface-visibility: hidden; }
+.tape .front, .tape .back { left: 0; width: var(--W); }
+.tape .front { transform: translateZ(calc(var(--D) / 2)); border-radius: 3px; overflow: hidden; background: #111; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(246,226,174,.14); }
+.tape .back { display: none; }
+.tape .sp { left: calc((var(--W) - var(--D)) / 2); width: var(--D); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 10px 0 12px; overflow: hidden; cursor: pointer;
+  background: var(--sp-bg); color: var(--sp-ink); box-shadow: inset 2px 0 0 rgba(255,255,255,.07), inset -2px 0 0 rgba(0,0,0,.35); }
+.tape .sp.l { transform: rotateY(-90deg) translateZ(calc(var(--W) / 2)); }
+.tape .sp.r { transform: rotateY(90deg) translateZ(calc(var(--W) / 2)); }
+.tape .sp::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--dim, 0); pointer-events: none; }
+.sp-num { font-family: var(--mono); font-size: calc(var(--D) * .2); letter-spacing: .05em; opacity: .75; }
+.sp-title { writing-mode: vertical-rl; transform: rotate(180deg); font-family: var(--display); text-transform: uppercase; font-size: calc(var(--D) * .42); line-height: 1; letter-spacing: .03em; white-space: nowrap; overflow: hidden; max-height: 72%; }
+.sp-vhs { font-family: var(--display); font-size: calc(var(--D) * .2); letter-spacing: .08em; padding: 2px 4px; border: 1px solid currentColor; border-radius: 2px; opacity: .8; }
+.tape.decor .sp-title { opacity: .35; font-size: calc(var(--D) * .3); }
+.tape.decor .sp, .tape.decor .front { cursor: default; }
+.cover-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cover-art.ph { background: radial-gradient(120% 90% at 30% 20%, #4a3818, #0b0a08 70%); }
+.front::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(7,7,7,.75) 0%, rgba(7,7,7,0) 28%, rgba(7,7,7,0) 55%, rgba(7,7,7,.92) 100%); }
+.front::after { content: ""; position: absolute; inset: 0; z-index: 3; background: linear-gradient(115deg, rgba(255,255,255,.14), rgba(255,255,255,0) 35%, rgba(255,255,255,0) 70%, rgba(255,255,255,.06)); pointer-events: none; }
+.cv-top { position: absolute; z-index: 2; top: 12px; left: 0; right: 0; text-align: center; font-family: var(--mono); font-size: calc(var(--W) * .034); letter-spacing: .22em; text-transform: uppercase; color: rgba(246,226,174,.85); }
+.cv-title { position: absolute; z-index: 2; left: 14px; right: 14px; bottom: 34px; font-family: var(--display); text-transform: uppercase; font-size: calc(var(--W) * .15); line-height: .92; color: var(--ink); text-shadow: 0 2px 18px rgba(0,0,0,.6); }
+.cv-foot { position: absolute; z-index: 2; left: 14px; right: 14px; bottom: 12px; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: calc(var(--W) * .036); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.cv-foot b { font-family: var(--display); font-weight: 400; color: #0a0805; background: var(--gold); padding: 1px 5px; border-radius: 2px; letter-spacing: .08em; }
+.cv-prev { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s; }
+.tape.is-active .front:hover .cv-prev { opacity: 1; }
+.shelf-info { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 24px; width: min(640px, calc(100% - 2 * var(--pad))); margin: 6px auto 0; }
+.shelf-caption { text-align: center; min-width: 0; }
+.work .shelf-title { font-family: var(--display); text-transform: uppercase; font-size: clamp(30px, 3.4vw, 48px); line-height: 1; letter-spacing: .01em; color: var(--gold-hi); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.shelf-meta { display: block; margin-top: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.shelf-arrow { width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--ink); font-size: 20px; cursor: pointer; transition: border-color .3s, background .3s, color .3s; }
+.shelf-arrow:hover { border-color: var(--gold); background: var(--gold); color: #0a0805; }
+.shelf-arrow[disabled] { opacity: .3; pointer-events: none; }
+
 /* placeholder art (shown until real thumbnails exist) */
 .ph { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; }
 .ph b { position: relative; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(80px, 11vw, 190px); color: rgba(246,226,174,.2); }
