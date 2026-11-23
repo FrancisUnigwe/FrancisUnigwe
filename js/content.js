@@ -232,10 +232,18 @@ window.SITE = {
   responseNote: "Response within 12–24 hours by email",
   // Public email shown on the site (Send a Mail button and next to the form).
   email: "franchizerich@gmail.com",
+  // WhatsApp: the number in international form, digits only (no +, spaces or dashes).
+  whatsapp: "2347083776199",
+  whatsappMsg: {
+    general: "Hi King Francis, I found you on your website and I'd like to chat.",
+    project: "Hi King Francis, I found you on your website and I'd like to work with you on a project.",
+    classes: "Hi King Francis, I found you on your website and I'd like to ask about your live classes.",
+  },
   socials: [
     { label: "YouTube",   url: "#" },
     { label: "Instagram", url: "#" },
     { label: "TikTok",    url: "#" },
     { label: "X",         url: "#" },
+    { label: "WhatsApp",  url: "whatsapp" }, // filled in from the number above
   ],
 };

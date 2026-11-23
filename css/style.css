@@ -431,6 +431,19 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .socials a:hover { background: var(--gold); color: #0a0805; border-color: var(--gold); }
 .menu-foot.socials { justify-content: flex-start; }
 
+/* ---------- WhatsApp ---------- */
+.wa-float { position: fixed; right: 24px; bottom: 24px; z-index: 190; display: flex; align-items: center; height: 58px; padding: 0 17px; border-radius: 999px; background: var(--gold); color: #0a0805; box-shadow: 0 12px 34px -10px rgba(217,180,108,.7), 0 0 0 1px rgba(246,226,174,.4) inset; font-weight: 600; font-size: 14px; letter-spacing: .02em; overflow: hidden; max-width: 58px; transition: max-width .6s var(--ease), background .3s, transform .4s var(--ease); white-space: nowrap; }
+.wa-float .ico { width: 24px; height: 24px; flex: none; }
+.wa-float span { margin-left: 10px; opacity: 0; transition: opacity .3s; }
+.wa-float:hover { max-width: 260px; background: var(--gold-hi); transform: translateY(-2px); }
+.wa-float:hover span { opacity: 1; transition-delay: .12s; }
+.wa-float::before { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 0 0 rgba(217,180,108,.55); animation: waPulse 2.6s ease-out infinite; pointer-events: none; }
+@keyframes waPulse { 0% { box-shadow: 0 0 0 0 rgba(217,180,108,.5); } 70%, 100% { box-shadow: 0 0 0 16px rgba(217,180,108,0); } }
+.is-loading .wa-float, .menu-open .wa-float { opacity: 0; pointer-events: none; }
+.wa-btn .ico { width: 17px; height: 17px; }
+.brief-foot { row-gap: 14px; }
+@media (max-width: 560px) { .wa-float { right: 16px; bottom: 16px; height: 54px; max-width: 54px; padding: 0 15px; } .wa-btn { width: 100%; } }
+
 /* ---------- footer ---------- */
 .footer { padding: 0 var(--pad) 26px; overflow: hidden; }
 .footer-name { font-family: var(--display); text-transform: uppercase; white-space: nowrap; line-height: .86; font-size: 17vw; text-align: center; padding-top: 30px;
